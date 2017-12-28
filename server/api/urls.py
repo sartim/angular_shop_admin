@@ -5,16 +5,16 @@ from .views import api_root, CategoryViewSet, ProductViewSet, OrderViewSet, Orde
 
 schema_view = get_swagger_view(title='API DOC')
 
-category_list = CategoryViewSet.as_view({'get': 'list'})
-category_detail = CategoryViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update'})
+category_list = CategoryViewSet.as_view({'get': 'list', 'post': 'create'})
+category_detail = CategoryViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'})
 
-product_list = ProductViewSet.as_view({'get': 'list'})
-product_detail = ProductViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update'})
+product_list = ProductViewSet.as_view({'get': 'list', 'post': 'create'})
+product_detail = ProductViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update', 'delete': 'destroy'})
 
-order_list = OrderViewSet.as_view({'get': 'list'})
+order_list = OrderViewSet.as_view({'get': 'list', 'post': 'create'})
 order_detail = OrderViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update'})
 
-order_item_list = OrderItemViewSet.as_view({'get': 'list'})
+order_item_list = OrderItemViewSet.as_view({'get': 'list', 'post': 'create'})
 order_item_detail = OrderItemViewSet.as_view({'get': 'retrieve', 'put': 'update', 'patch': 'partial_update'})
 
 urlpatterns = [
@@ -27,8 +27,8 @@ urlpatterns = [
     url(r'^api/v1/category/(?P<pk>[0-9]+)/$', category_detail, name="category-detail"),
     url(r'^api/v1/product/$', product_list, name="product-list"),
     url(r'^api/v1/product/(?P<pk>[0-9]+)/$', product_detail, name="product-detail"),
-    url(r'^api/v1/order/$', order_item_list, name="order-list"),
-    url(r'^api/v1/order/(?P<pk>[0-9]+)/$', order_item_detail, name="order-item-detail"),
+    url(r'^api/v1/order/$', order_list, name="order-list"),
+    url(r'^api/v1/order/(?P<pk>[0-9]+)/$', order_detail, name="order-detail"),
     url(r'^api/v1/order/item/$', order_item_list, name="order-list"),
     url(r'^api/v1/order/item/(?P<pk>[0-9]+)/$', order_item_detail, name="order-item-detail"),
 ]

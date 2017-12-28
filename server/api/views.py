@@ -7,8 +7,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from server.api.models import Category
-from server.api.serializers import CategorySerializer
+from .models import Category, Product, Order, OrderItem
+from .serializers import CategorySerializer, ProductSerializer, OrderSerializer, OrderItemSerializer
 
 
 @api_view(['GET'])
@@ -20,16 +20,49 @@ def api_root(request, format=None):
     :return: Response
     """
     return Response({
-        # 'category': reverse('category', request=request, format=format),
+        # 'category-list': reverse('category-list', request=request, format=format),
     })
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
-    List menu items
+    Categories
     """
     serializer_class = CategorySerializer
 
     def get_queryset(self, *args, **kwargs):
         queryset = Category.objects.all()
+        return queryset
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    """
+    Products
+    """
+    serializer_class = ProductSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = Product.objects.all()
+        return queryset
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    """
+    Orders
+    """
+    serializer_class = OrderSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = Order.objects.all()
+        return queryset
+
+
+class OrderItemViewSet(viewsets.ModelViewSet):
+    """
+    Orders Items
+    """
+    serializer_class = OrderItemSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = OrderItem.objects.all()
         return queryset

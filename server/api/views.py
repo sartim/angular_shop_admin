@@ -3,8 +3,12 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from server.api.models import Category
+from server.api.serializers import CategorySerializer
 
 
 @api_view(['GET'])
@@ -16,10 +20,16 @@ def api_root(request, format=None):
     :return: Response
     """
     return Response({
-        # 'kfc_list': reverse('kfc-list', request=request, format=format),
-        # 'kfc_search': reverse('kfc-search', request=request, format=format),
-        # 'order': reverse('order', request=request, format=format),
-        # 'current_user': reverse('curr-user', request=request, format=format),
-        # 'active_orders': reverse('order-list', request=request, format=format),
-        # 'address': reverse('address-list', request=request, format=format),
+        # 'category': reverse('category', request=request, format=format),
     })
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    """
+    List menu items
+    """
+    serializer_class = CategorySerializer
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = Category.objects.all()
+        return queryset

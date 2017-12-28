@@ -3,11 +3,6 @@ from .models import Category, Product, Order, OrderItem
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        pass
 
     class Meta:
         model = Category
@@ -16,11 +11,11 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        pass
+    # def create(self, validated_data):
+    #     pass
+    #
+    # def update(self, instance, validated_data):
+    #     pass
 
     class Meta:
         model = Product
@@ -30,11 +25,12 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.Serializer):
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        pass
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    order_total = serializers.CharField()
+    created = serializers.CharField()
+    updated = serializers.CharField()
+    is_site_order = serializers.CharField()
+    is_app_order = serializers.CharField()
 
     class Meta:
         model = Order
@@ -43,11 +39,10 @@ class OrderSerializer(serializers.Serializer):
 
 
 class OrderItemSerializer(serializers.Serializer):
-    def create(self, validated_data):
-        pass
-
-    def update(self, instance, validated_data):
-        pass
+    order = serializers.PrimaryKeyRelatedField(read_only=True)
+    product = serializers.PrimaryKeyRelatedField(read_only=True)
+    price = serializers.CharField()
+    quantity = serializers.CharField()
 
     class Meta:
         model = OrderItem

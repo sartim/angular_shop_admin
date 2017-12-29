@@ -4,11 +4,13 @@ Angular admin dashboard for ordering platform using Django REST framework
 
 #### Server Setup
 
-###### (Optional)
 
     $ cd server
+###### (Optional)
     $ virtualenv -p python3 venv
     $ source venv/bin/activate
+
+#
     $ pip install -r requirments.txt
     $ ./manage.py runserver
 

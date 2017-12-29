@@ -1,5 +1,12 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from .models import Category, Product, Order, OrderItem
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'date_joined',)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -25,7 +32,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.Serializer):
-    user = serializers.PrimaryKeyRelatedField(read_only=True)
+    user = UserSerializer(read_only=True)
     order_total = serializers.CharField()
     created = serializers.CharField()
     updated = serializers.CharField()
@@ -39,8 +46,8 @@ class OrderSerializer(serializers.Serializer):
 
 
 class OrderItemSerializer(serializers.Serializer):
-    order = serializers.PrimaryKeyRelatedField(read_only=True)
-    product = serializers.PrimaryKeyRelatedField(read_only=True)
+    order = OrderSerializer(read_only=True)
+    product = ProductSerializer(read_only=True)
     price = serializers.CharField()
     quantity = serializers.CharField()
 

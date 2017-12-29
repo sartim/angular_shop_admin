@@ -1,0 +1,15 @@
+.order_id {
+  text-decoration: underline;
+}
+.order_id:hover {
+  color: #f9a825;
+}
+td {
+  white-space: nowrap;
+}
+.container {
+  width: 90% !important;
+}
+.side-nav {
+  width: 250px;
+}

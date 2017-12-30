@@ -1,5 +1,5 @@
 # Angular ADMIN
-Angular admin dashboard for ordering platform using Django REST framework
+Angular 4 admin dashboard using Django 2, Django REST framework and Python 3
 
 
 #### Server Setup

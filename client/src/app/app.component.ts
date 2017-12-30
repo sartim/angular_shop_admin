@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { AlertService, AuthenticationService } from './_services/index';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    moduleId: module.id,
+    selector: 'app-root',
+    styles: [],
+    templateUrl: 'app.component.html'
 })
-export class AppComponent {
-  title = 'app';
+
+export class AppComponent implements OnInit {
+  constructor(
+        private authenticationService: AuthenticationService) {}
+  ngOnInit() {
+        this.authenticationService.getNewToken(); // To get new token
+        this.authenticationService.getNewTokenHandler(); // To get new token after 2 minutes
+    }
 }

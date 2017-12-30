@@ -12,7 +12,7 @@ export class AuthenticationService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        let login = this.http.post('http://127.0.0.1:8000/api/v1/auth/api-token-auth/', body, options)
+        let login = this.http.post('http://127.0.0.1:8000/api/v1/auth/token-auth/', body, options)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();
@@ -31,7 +31,7 @@ export class AuthenticationService {
             let headers = new Headers({ 'Content-Type': 'application/json' });
             let options = new RequestOptions({ headers: headers });
 
-            let refresh = this.http.post('http://127.0.0.1:8000/api/v1/auth/api-token-refresh/', body, options)
+            let refresh = this.http.post('http://127.0.0.1:8000/api/v1/auth/token-refresh/', body, options)
                 .map((response: Response) =>
                 {
                     // login successful if there's a jwt token in the response

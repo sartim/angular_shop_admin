@@ -1,0 +1,53 @@
+﻿<div id="card-stats">
+    <div class="row">
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content">
+                    <p class="card-stats-title"><i class="mdi-social-group-add"></i> New Clients</p>
+                    <h4 class="card-stats-number">{{ orders_today.count }}</h4>
+                    <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i><span class="orange-text text-lighten-1">from yesterday</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content">
+                    <p class="card-stats-title"><i class="mdi-editor-insert-drive-file"></i> New Invoice</p>
+                    <h4 class="card-stats-number">1806</h4>
+                    <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i><span class="orange-text text-lighten-1">from yesterday</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content">
+                    <p class="card-stats-title"><i class="mdi-action-trending-up"></i> Today Profit</p>
+                    <h4 class="card-stats-number">$806.52</h4>
+                    <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i><span class="orange-text text-lighten-1">from yesterday</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content">
+                    <p class="card-stats-title">Total Orders</p>
+                    <h4 class="card-stats-number">{{ orders.count }}</h4>
+                    <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i>3%<span class="orange-text text-lighten-1">from yesterday</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <!-- <div id="chartdiv" [style.width.%]="100" [style.height.px]="500"></div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@amcharts/amcharts3-angular": "^1.5.0",
     "@angular/animations": "^4.2.4",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",

@@ -28,7 +28,7 @@ SECRET_KEY = '*98x84&8sr0r*+q!o=#5iqkc$4jt4z9sruy$a3p41uc^9hjh#^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'my_db',
+        'USER': 'username',
+        'PASSWORD': '***********',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -121,11 +125,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
+STATIC_ROOT = (os.path.join(os.path.dirname(__file__), '..', 'static'))
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = (os.path.join(os.path.dirname(__file__), '..', 'media'))
+MEDIA_URL = '/media/'
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 CORS_ORIGIN_ALLOW_ALL = True
 

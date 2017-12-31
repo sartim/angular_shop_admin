@@ -90,3 +90,5 @@ db.sqlite3
 # Editors
 .idea/
 .vscode/
+
+static/

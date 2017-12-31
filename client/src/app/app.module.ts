@@ -30,8 +30,8 @@ import { HeaderComponent } from './header/header.component';
     ],
     declarations: [
         AppComponent,
-        AlertComponent,
         HomeComponent,
+        AlertComponent,
         OrderDetailComponent,
         LoginComponent,
         RegisterComponent,

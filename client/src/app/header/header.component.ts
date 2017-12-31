@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Order } from '../_models/index';
-import { OrderService } from '../_services/index';
 
 
 @Component({
@@ -61,16 +59,8 @@ import { OrderService } from '../_services/index';
     `]
 })
 export class HeaderComponent implements  OnInit {
-    orders: Order[] = [];
-
-    constructor(private orderService: OrderService) { }
 
     ngOnInit() {
-        this.loadAllActive(0); // To get total orders
-    }
 
-    private loadAllActive(offset) {
-        const load_all_ = this.orderService.getAllOrders(offset);
-        load_all_.subscribe(orders => { this.orders = orders; });
     }
 }

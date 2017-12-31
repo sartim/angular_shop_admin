@@ -8,32 +8,32 @@ export class OrderService {
     constructor(private http: Http, private userService: UserService, ) { }
 
     getOrdersToday() {
-        return this.http.get('http://127.0.0.1:8000/api/v1/order/today/',
+        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/today/',
           this.userService.jwt()).map((response: Response) => response.json());
     }
 
     getOrdersThisMonth() {
-        return this.http.get('http://127.0.0.1:8000/api/v1/order/this-month/',
+        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/this-month/',
           this.userService.jwt()).map((response: Response) => response.json());
     }
 
     getOrdersLastMonth() {
-        return this.http.get('http://127.0.0.1:8000/api/v1/order/last-month/',
+        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/last-month/',
           this.userService.jwt()).map((response: Response) => response.json());
     }
 
     getOrdersPlot() {
-        return this.http.get('http://127.0.0.1:8000/api/v1/order/plot/',
+        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/plot/',
           this.userService.jwt()).map((response: Response) => response.json());
     }
 
     getAllOrders(offset: number) {
-        return this.http.get('http://127.0.0.1:8000/api/v1/order/' + '?offset=' + offset,
+        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/' + '?offset=' + offset,
           this.userService.jwt()).map((response: Response) => response.json())
     }
 
     getOrderById(id: number) {
-        return this.http.get('http://127.0.0.1:8000/api/v1/order/' + id + '/',
+        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/' + id + '/',
           this.userService.jwt()).map((response: Response) => response.json());
     }
 }

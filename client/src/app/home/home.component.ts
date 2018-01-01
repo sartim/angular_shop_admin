@@ -41,12 +41,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         private router: Router,
         private AmCharts: AmChartsService,
         private http: Http) {
-        // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
-        if (this.loggedUser) {
-            console.log(this.loggedUser);
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (this.currentUser) {
+            console.log(JSON.stringify(this.currentUser.user.username));
         } else {
-            location.reload();
+          location.reload();
         }
     }
 
@@ -63,6 +62,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         //     console.log(orders_plot);
         // });
+        this.initScript();
+    }
+
+    initScript() {
+        document.getElementById('header').style.display = 'block';
+        document.getElementById('left-sidebar-nav').style.display = 'block';
+        document.getElementById('fab_id').style.display = 'block';
+        //document.getElementById('main').removeAttribute('id');
     }
 
     makeRandomDataProvider() {

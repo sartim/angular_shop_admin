@@ -7,4 +7,9 @@
     last_name: string;
     email: string;
     phone: string;
+    token: string;
+    user: {
+      username: string,
+      first_name: string,
+    };
 }

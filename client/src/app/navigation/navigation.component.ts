@@ -19,12 +19,9 @@ export class NavigationComponent implements OnInit {
 
 
     constructor(private orderService: OrderService) {
-        // this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
-        if (this.loggedUser) {
-            console.log(this.loggedUser);
-        } else {
-            // location.reload();
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (this.currentUser) {
+            console.log(this.currentUser.user.username);
         }
     }
     ngOnInit() {

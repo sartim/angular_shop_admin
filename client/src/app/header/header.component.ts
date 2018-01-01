@@ -6,17 +6,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
     selector: 'app-header',
     templateUrl: 'header.component.html',
     styles: [`
-      input[type=text]:not(.browser-default){
-        background-color: #ffbd7a;
-      }
-      input.header-search-input:hover {
-          background: rgba(255,255,255,0.5);
-      }
       input.header-search-input {
+          background: rgba(255,255,255,0.3);
           display: block;
           padding: 8px 8px 8px 72px;
           width: 100%;
-          background: rgba(255,255,255,0.3);
           height: 24px;
           -webkit-transition: all 200ms ease;
           transition: all 200ms ease;
@@ -61,6 +55,5 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class HeaderComponent implements  OnInit {
 
     ngOnInit() {
-
     }
 }

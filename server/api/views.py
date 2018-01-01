@@ -13,6 +13,13 @@ from .models import Category, Product, Order, OrderItem
 from .serializers import UserSerializer, CategorySerializer, ProductSerializer, OrderSerializer, OrderItemSerializer
 
 
+def jwt_response_payload_handler(token, user=None, request=None):
+    return {
+        'token': token,
+        'user': UserSerializer(user, context={'request': request}).data
+    }
+
+
 @api_view(['GET'])
 def api_root(request, format=None):
     """

@@ -19,3 +19,14 @@ Angular 4 admin dashboard using Django 2, Django REST framework and Python 3
     $ cd client
     $ npm install
     $ ng serve --open 
+
+
+**Demo URL**
+
+`https://angular-drf-admin.firebaseapp.com`
+
+###### Login Credentials
+
+username: `demo`
+
+password: `qwertytrewq`

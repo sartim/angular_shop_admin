@@ -6,3 +6,13 @@
     $ git push heroku master
 
 Remember to setup database settings on settings.py
+
+**Demo URL**
+
+`https://angular-drf-admin.firebaseapp.com`
+
+###### Login Credentials
+
+username: `demo`
+
+password: `qwertytrewq`

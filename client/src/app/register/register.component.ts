@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AlertService, UserService } from '../_services/index';
@@ -8,7 +8,7 @@ import { AlertService, UserService } from '../_services/index';
     templateUrl: 'register.component.html'
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
     model: any = {};
     loading = false;
 
@@ -16,6 +16,10 @@ export class RegisterComponent {
         private router: Router,
         private userService: UserService,
         private alertService: AlertService) { }
+
+    ngOnInit() {
+        this.initScript();
+    }
 
     register() {
         this.loading = true;
@@ -29,5 +33,11 @@ export class RegisterComponent {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+    }
+
+    initScript() {
+        document.getElementById('header').style.display = 'none';
+        document.getElementById('left-sidebar-nav').style.display = 'none';
+        document.getElementById('fab_id').style.display = 'none';
     }
 }

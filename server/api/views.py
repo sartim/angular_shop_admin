@@ -193,8 +193,10 @@ def orders_plot(request):
         rows = cursor.fetchall()
         result = []
         keys = ('id', 'value', 'date')
+        if rows:
+            for row in rows:
+                result.append(dict(zip(keys, row)))
+            return Response(result)
+        else:
+            return Response([{"detail": "No results"}])
 
-        for row in rows:
-            result.append(dict(zip(keys, row)))
-
-        return Response(result)

@@ -52,16 +52,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnInit() {
         // this.loadAllUsers();
         this.fetchUser(); // To fetch logged in user
-        // this.authenticationService.getNewToken(); // To get new token
-        // this.authenticationService.getNewTokenHandler(); // To get new token after 2 minutes
+        this.authenticationService.getNewToken(); // To get new token
+        this.authenticationService.getNewTokenHandler(); // To get new token after 2 minutes
         this.loadOrdersToday(); // To get orders today
-        // this.loadOrdersPlot(); // For orders graph with amcharts plugin
+        this.loadOrdersPlot(); // For orders graph with amcharts plugin
         //this.loadAllDelivered(0); // To get total orders
+        this.orderService.getOrdersPlot().forEach(orders_plot => {
 
-        // this.orderService.getOrdersPlot().forEach(orders_plot => {
-
-        //     console.log(orders_plot);
-        // });
+             console.log(orders_plot);
+        });
         this.initScript();
     }
 
@@ -88,102 +87,102 @@ export class HomeComponent implements OnInit, OnDestroy {
         return this.dataProvider;
     }
 
-    // ngAfterViewInit() {
-    //
-    //     this.chart = this.AmCharts.makeChart('chartdiv', {
-    //         'type': 'serial',
-    //         'theme': 'light',
-    //         'marginRight': 40,
-    //         'marginLeft': 40,
-    //         'autoMarginOffset': 20,
-    //         'mouseWheelZoomEnabled':true,
-    //         'dataDateFormat': 'YYYY-MM-DD',
-    //         'valueAxes': [{
-    //             'id': 'v1',
-    //             'axisAlpha': 0,
-    //             'position': 'left',
-    //             'ignoreAxisWidth':true
-    //         }],
-    //         'balloon': {
-    //             'borderThickness': 1,
-    //             'shadowAlpha': 0
-    //         },
-    //         'graphs': [{
-    //             'id': 'g1',
-    //             'balloon':{
-    //                 'drop':true,
-    //                 'adjustBorderColor':false,
-    //                 'color': '#ffffff'
-    //             },
-    //             'bullet': 'round',
-    //             'bulletBorderAlpha': 1,
-    //             'bulletColor': '#FFFFFF',
-    //             'bulletSize': 5,
-    //             'hideBulletsCount': 50,
-    //             'lineThickness': 2,
-    //             'title': 'red line',
-    //             'useLineColorForBulletBorder': true,
-    //             'valueField': 'value',
-    //             'balloonText': '<span style="font-size:18px;">[[value]]</span>'
-    //         }],
-    //         'chartScrollbar': {
-    //             'graph': 'g1',
-    //             'oppositeAxis':false,
-    //             'offset':30,
-    //             'scrollbarHeight': 80,
-    //             'backgroundAlpha': 0,
-    //             'selectedBackgroundAlpha': 0.1,
-    //             'selectedBackgroundColor': '#888888',
-    //             'graphFillAlpha': 0,
-    //             'graphLineAlpha': 0.5,
-    //             'selectedGraphFillAlpha': 0,
-    //             'selectedGraphLineAlpha': 1,
-    //             'autoGridCount': true,
-    //             'color': '#AAAAAA'
-    //         },
-    //         'chartCursor': {
-    //             'pan': true,
-    //             'valueLineEnabled': true,
-    //             'valueLineBalloonEnabled': true,
-    //             'cursorAlpha':1,
-    //             'cursorColor': '#258cbb',
-    //             'limitToGraph': 'g1',
-    //             'valueLineAlpha': 0.2,
-    //             'valueZoomable': true
-    //         },
-    //         'valueScrollbar':{
-    //             'oppositeAxis': false,
-    //             'offset': 50,
-    //             'scrollbarHeight': 10
-    //         },
-    //         'categoryField': 'date',
-    //         'categoryAxis': {
-    //             'parseDates': true,
-    //             'dashLength': 1,
-    //             'minorGridEnabled': true
-    //         },
-    //         'export': {
-    //             'enabled': true
-    //         },
-    //
-    //         'dataProvider': this.makeRandomDataProvider()
-    //     });
-    //
-    //     // Updates the chart every 2 seconds
-    //     this.timer = setInterval(() => {
-    //         // This must be called when making any changes to the chart
-    //         this.AmCharts.updateChart(this.chart, () => {
-    //             // this.chart.dataProvider = this.makeRandomDataProvider();
-    //
-    //             this.chart.addListener('init', () => {
-    //                 // Do stuff after the chart is initialized
-    //             });
-    //             this.chart.addListener('rendered', () => {
-    //                 this.chart.zoomToIndexes(this.chart.dataProvider.length - 40, this.chart.dataProvider.length - 1);
-    //             });
-    //         });
-    //     }, 2000);
-    // }
+    ngAfterViewInit() {
+
+        this.chart = this.AmCharts.makeChart('chartdiv', {
+            'type': 'serial',
+            'theme': 'light',
+            'marginRight': 40,
+            'marginLeft': 40,
+            'autoMarginOffset': 20,
+            'mouseWheelZoomEnabled':true,
+            'dataDateFormat': 'YYYY-MM-DD',
+            'valueAxes': [{
+                'id': 'v1',
+                'axisAlpha': 0,
+                'position': 'left',
+                'ignoreAxisWidth':true
+            }],
+            'balloon': {
+                'borderThickness': 1,
+                'shadowAlpha': 0
+            },
+            'graphs': [{
+                'id': 'g1',
+                'balloon':{
+                    'drop':true,
+                    'adjustBorderColor':false,
+                    'color': '#ffffff'
+                },
+                'bullet': 'round',
+                'bulletBorderAlpha': 1,
+                'bulletColor': '#FFFFFF',
+                'bulletSize': 5,
+                'hideBulletsCount': 50,
+                'lineThickness': 2,
+                'title': 'red line',
+                'useLineColorForBulletBorder': true,
+                'valueField': 'value',
+                'balloonText': '<span style="font-size:18px;">[[value]]</span>'
+            }],
+            'chartScrollbar': {
+                'graph': 'g1',
+                'oppositeAxis':false,
+                'offset':30,
+                'scrollbarHeight': 80,
+                'backgroundAlpha': 0,
+                'selectedBackgroundAlpha': 0.1,
+                'selectedBackgroundColor': '#888888',
+                'graphFillAlpha': 0,
+                'graphLineAlpha': 0.5,
+                'selectedGraphFillAlpha': 0,
+                'selectedGraphLineAlpha': 1,
+                'autoGridCount': true,
+                'color': '#AAAAAA'
+            },
+            'chartCursor': {
+                'pan': true,
+                'valueLineEnabled': true,
+                'valueLineBalloonEnabled': true,
+                'cursorAlpha':1,
+                'cursorColor': '#258cbb',
+                'limitToGraph': 'g1',
+                'valueLineAlpha': 0.2,
+                'valueZoomable': true
+            },
+            'valueScrollbar':{
+                'oppositeAxis': false,
+                'offset': 50,
+                'scrollbarHeight': 10
+            },
+            'categoryField': 'date',
+            'categoryAxis': {
+                'parseDates': true,
+                'dashLength': 1,
+                'minorGridEnabled': true
+            },
+            'export': {
+                'enabled': true
+            },
+
+            'dataProvider': this.makeRandomDataProvider()
+        });
+
+        // Updates the chart every 2 seconds
+        this.timer = setInterval(() => {
+            // This must be called when making any changes to the chart
+            this.AmCharts.updateChart(this.chart, () => {
+                // this.chart.dataProvider = this.makeRandomDataProvider();
+
+                this.chart.addListener('init', () => {
+                    // Do stuff after the chart is initialized
+                });
+                this.chart.addListener('rendered', () => {
+                    this.chart.zoomToIndexes(this.chart.dataProvider.length - 40, this.chart.dataProvider.length - 1);
+                });
+            });
+        }, 2000);
+    }
 
     ngOnDestroy() {
       clearInterval(this.timer);

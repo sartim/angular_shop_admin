@@ -25,7 +25,12 @@
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/hammerjs/hammer.js",
-        "../node_modules/materialize-css/dist/js/materialize.js"
+        "../node_modules/materialize-css/dist/js/materialize.js",
+        "../node_modules/amcharts3/amcharts/amcharts.js",
+        "../node_modules/amcharts3/amcharts/serial.js",
+        "../node_modules/amcharts3/amcharts/pie.js",
+        "../node_modules/amcharts3/amcharts/themes/light.js",
+        "../node_modules/amcharts3/amcharts/plugins/export/export.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

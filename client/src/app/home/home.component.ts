@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     makeRandomDataProvider() {
-        this.http.get('http://127.0.0.1:8000/api/v1/order/plot/', this.userService.jwt())
+        this.http.get('https://ordering-api.herokuapp.com/api/v1/order/plot/', this.userService.jwt())
         .map(res => res.json()).subscribe(
             data => {
                 this.orders_plot = data;

@@ -79,6 +79,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     user = UserSerializer(read_only=True)
     order_total = serializers.CharField()
     created = serializers.CharField()
@@ -88,7 +89,7 @@ class OrderSerializer(serializers.Serializer):
 
     class Meta:
         model = Order
-        fields = ('user', 'order_total', 'created', 'updated', 'is_site_order', 'is_app_order',)
+        fields = ('id', 'user', 'order_total', 'created', 'updated', 'is_site_order', 'is_app_order',)
         fields = '__all__'
 
 

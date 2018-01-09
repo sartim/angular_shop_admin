@@ -10,7 +10,7 @@ import { routing } from './app.routing';
 
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, OrderService } from './_services/index';
+import { AlertService, AuthenticationService, UserService, OrderService, CategoryService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { OrderListComponent, OrderDetailComponent } from './order/index';
 import { LoginComponent } from './login/index';
@@ -46,6 +46,7 @@ import { HeaderComponent } from './header/header.component';
         UserService,
         OrderService,
         AmChartsService,
+        CategoryService,
     ],
     bootstrap: [AppComponent]
 })

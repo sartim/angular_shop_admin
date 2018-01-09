@@ -1,35 +1,35 @@
-<!-- Begin breadcrumb -->
-<ol class="breadcrumb breadcrumb-arrow">
-  <li><a href="#">Dashboard</a></li>
-  <li><a href="#">Orders</a></li>
-  <li class="active"><span>View Order</span></li>
-</ol>
 <!-- ./End breadcrumb -->
-<div id="login-page" class="row">
-    <div class="col s3">
-        <div class="col s12 z-depth-4 card-panel">
-          <div *ngIf="orders">
-            <button class="btn grey waves-effect waves-light" (click)="goBack()">Back</button>
-             <div class="row">
-                  <div class="input-field col s12 center">
-                      <p class="center login-form-text">{{orders.id}}</p>
-                  </div>
+<div class="row">
+    <div class="col s12">
+      <div *ngIf="orders">
+        <button class="btn grey waves-effect waves-light" (click)="goBack()">Back</button>
+         <div class="row">
+             <div class="col s6">
+                  <h6>Customer Info</h6>
+                  <label>
+                      Customer Name:
+                      {{ orders.user.first_name }}
+                      {{ orders.user.last_name }}
+                  </label>  <br>
+                 <label>
+                     Customer Email:
+                     {{ orders.user.email }}
+                 </label>
+             </div>
+              <div class="input-field col s12 center">
+                  <p class="center login-form-text">{{orders.id}}</p>
               </div>
-              <h6>Order Info</h6>
-              Resraurant: {{orders.restaurant.name}} <br>
-              Hood: {{ orders.address.primary_hood.name }} <br>
-              Phone: {{ orders.restaurant.phone }} <br>
-              Street name: {{ orders.restaurant.address.street_name }} <br>
-              Cross street: {{ orders.restaurant.address.cross_street }} <br>
-              <div *ngIf="orders.restaurant.is_cash_upfront">Cash Up front : {{ orders.restaurant.is_cash_upfront }}</div><br>
-              Order Instructions: {{ orders.items.instructions }}<br>
-            <!--<div>-->
-                <!--<label>name: </label>-->
-                <!--<input [(ngModel)]="orders.id" placeholder="id" />-->
-            <!--</div>-->
-
           </div>
-        </div>
+
+
+
+
+        <!--<div>-->
+            <!--<label>name: </label>-->
+            <!--<input [(ngModel)]="orders.id" placeholder="id" />-->
+        <!--</div>-->
+
+      </div>
     </div>
 </div>
 

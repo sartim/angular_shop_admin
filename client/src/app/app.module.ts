@@ -13,6 +13,7 @@ import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService, OrderService, CategoryService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { OrderListComponent, OrderDetailComponent } from './order/index';
+import { CategoryListComponent, CategoryDetailComponent } from './category/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -34,6 +35,8 @@ import { HeaderComponent } from './header/header.component';
         AlertComponent,
         OrderListComponent,
         OrderDetailComponent,
+        CategoryListComponent,
+        CategoryDetailComponent,
         LoginComponent,
         RegisterComponent,
         NavigationComponent,

@@ -10,7 +10,7 @@ import { Category } from '../_models/index';
     moduleId: module.id,
     templateUrl: 'category-detail.component.html'
 })
-export class OrderDetailComponent implements OnInit {
+export class CategoryDetailComponent implements OnInit {
     categories: Category[] = [];
 
     constructor(

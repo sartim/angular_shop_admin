@@ -1,5 +1,5 @@
 # Angular ADMIN
-Angular 4 admin dashboard using Django 2, Django REST framework and Python 3
+Angular 5 admin dashboard using Django 2, Django REST framework and Python 3
 
 
 #### Server Setup

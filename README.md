@@ -1,21 +1,8 @@
-# Angular ADMIN
-Angular 5 admin dashboard using Django 2, Django REST framework and Python 3
+# Angular Shop ADMIN
+Angular 5 Shop admin dashboard. To run the server source code locally use this `https://github.com/sartim/shop_rest_api.git`
 
 
-#### Server Setup
-
-
-    $ cd server
-###### (Optional)
-    $ virtualenv -p python3 venv
-    $ source venv/bin/activate
-
-#
-    $ pip install -r requirments.txt
-    $ ./manage.py runserver
-
-
-#### Client Setup
+#### Setup
     $ cd client
     $ npm install
     $ ng serve --open 

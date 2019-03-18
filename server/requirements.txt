@@ -1,9 +1,0 @@
-Django==2.1.7
-django-cors-headers==2.1.0
-django-rest-swagger==2.1.2
-djangorestframework==3.7.7
-djangorestframework-jwt==1.11.0
-gunicorn==19.7.1
-Pillow==4.3.0
-psycopg2==2.7.3.2
-whitenoise==3.3.1

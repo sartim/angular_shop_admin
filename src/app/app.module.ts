@@ -1,21 +1,18 @@
-﻿import { MaterializeModule } from 'angular2-materialize';
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AmChartsModule, AmChartsService } from '@amcharts/amcharts3-angular';
-
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-
-import { AlertComponent } from './_directives/index';
-import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, OrderService, CategoryService } from './_services/index';
-import { HomeComponent } from './home/index';
-import { OrderListComponent, OrderDetailComponent } from './order/index';
-import { CategoryListComponent, CategoryDetailComponent } from './category/index';
-import { LoginComponent } from './login/index';
-import { RegisterComponent } from './register/index';
+import { AlertComponent } from './_directives';
+import { AuthGuard } from './_guards';
+import { AlertService, AuthenticationService, UserService, OrderService, CategoryService } from './_services';
+import { HomeComponent } from './home';
+import { OrderListComponent, OrderDetailComponent } from './order';
+import { CategoryListComponent, CategoryDetailComponent } from './category';
+import { LoginComponent } from './login';
+import { RegisterComponent } from './register';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
 
@@ -26,8 +23,7 @@ import { HeaderComponent } from './header/header.component';
         FormsModule,
         HttpModule,
         routing,
-        AmChartsModule,
-        MaterializeModule
+        AmChartsModule
     ],
     declarations: [
         AppComponent,

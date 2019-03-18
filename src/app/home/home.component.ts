@@ -1,14 +1,13 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Router} from '@angular/router'
 
-import { User } from '../_models/index';
-import { Order } from '../_models/index';
+import { User } from '../_models';
+import { Order } from '../_models';
 
-import { UserService } from '../_services/index';
-import { OrderService } from '../_services/index';
-import { AlertService, AuthenticationService } from '../_services/index';
+import { UserService } from '../_services';
+import { OrderService } from '../_services';
+import { AlertService, AuthenticationService } from '../_services';
 import { AmChartsService, AmChart } from '@amcharts/amcharts3-angular';
-import { Observable } from 'rxjs/Observable';
 
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 

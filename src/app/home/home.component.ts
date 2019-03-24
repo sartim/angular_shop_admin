@@ -64,6 +64,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     initScript() {
+        // Modify some styles on home entry
+        document.body.style.display = 'block';
+        document.documentElement.style.display = 'block';
+        document.body.style.backgroundColor = '#f9f9f9';
         document.getElementById('header').style.display = 'block';
         document.getElementById('left-sidebar-nav').style.display = 'block';
         document.getElementById('fab_id').style.display = 'block';

@@ -1,7 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { AlertService, AuthenticationService } from '../_services/index';
+import { AlertService, AuthenticationService } from '../_services';
 
 
 @Component({
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
+        this.authenticationService.login(this.model.email, this.model.password)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);

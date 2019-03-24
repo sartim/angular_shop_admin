@@ -1,5 +1,5 @@
 ﻿<div id="login-page" class="row">
-    <div class="col s12 m6 l6">
+    <div class="col s12">
         <div class="col s12 z-depth-4 card-panel">
             <form class="login-form" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
                 <div class="row">
@@ -8,11 +8,11 @@
                     </div>
                 </div>
                 <div class="row margin">
-                    <div class="input-field col s12" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                    <div class="input-field col s12" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
                         <i class="mdi-social-person-outline prefix"></i>
-                        <input id="username" type="text" name="username" [(ngModel)]="model.username" #username="ngModel" required>
-                        <label for="username" class="center-align">Username</label>
-                        <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+                        <input id="email" type="text" name="email" [(ngModel)]="model.email" #email="ngModel" required>
+                        <label for="email">Email</label>
+                        <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
                     </div>
                 </div>
                 <div class="row margin">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6 m6 l6">
-                        <p class="margin medium-small"><a [routerLink]="['/register']">Register Now!</a></p>
+                        <!--<p class="margin medium-small"><a [routerLink]="['/register']">Register Now!</a></p>-->
                     </div>
                     <div class="input-field col s6 m6 l6">
                         <p class="margin right-align medium-small"><a [routerLink]="['/forgot-password']">Forgot password ?</a></p>

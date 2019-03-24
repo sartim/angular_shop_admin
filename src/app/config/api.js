@@ -1,3 +1,3 @@
-const apiUrl = 'https://flask-shop-api.herokuapp.com/';
+const apiUrl = 'https://flask-shop-api.herokuapp.com';
 
 export default apiUrl;

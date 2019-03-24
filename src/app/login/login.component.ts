@@ -44,9 +44,15 @@ export class LoginComponent implements OnInit {
     }
 
     initScript() {
+        document.body.style.height = '100%';
+        document.body.style.display = 'table-cell';
+        document.body.style.backgroundColor = '#0098e1';
+        document.body.style.verticalAlign = 'middle';
+        document.documentElement.style.display = 'table';
+        document.documentElement.style.margin = 'auto';
         document.getElementById('header').style.display = 'none';
         document.getElementById('left-sidebar-nav').style.display = 'none';
         document.getElementById('fab_id').style.display = 'none';
-        //document.getElementById('main').removeAttribute('id');
+        document.getElementById('main').removeAttribute('id');
     }
 }

@@ -1,33 +1,34 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
-import { User } from '../_models/index';
+import { User } from '../_models';
+import apiUrl from '../config/api.js';
 
 @Injectable()
 export class UserService {
     constructor(private http: Http) { }
     fetch() {
-        return this.http.get('http://127.0.0.1:8000/api/v1/auth/user/', this.jwt())
+        return this.http.get(apiUrl + '/account/generate/jwt/', this.jwt())
         .map((response: Response) => {
-            let logged_in_user = response.json();
-            console.log(logged_in_user);
-            if (logged_in_user) {
+            const loggedInUser = response.json();
+            console.log(loggedInUser);
+            if (loggedInUser) {
                 // store user details in local storage to keep user logged in between page refreshes
-                localStorage.setItem('loggedUser', JSON.stringify(logged_in_user));
+                localStorage.setItem('loggedUser', JSON.stringify(loggedInUser));
             }
-            return logged_in_user;
-        })
+            return loggedInUser;
+        });
     }
     getAll() {
-        return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/account/user/', this.jwt()).map((response: Response) => response.json());
     }
 
     getById(id: number) {
-        return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.get('/account/user/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     create(user: User) {
-        return this.http.post('http://127.0.0.1:8000/api/v1/auth/register/', user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post(apiUrl + '/api/v1/auth/register/', user,
+            this.jwt()).map((response: Response) => response.json());
     }
 
     update(user: User) {
@@ -42,10 +43,10 @@ export class UserService {
 
     jwt() {
         // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'JWT ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
+            const headers = new Headers({ Authorization: 'JWT ' + currentUser.token });
+            return new RequestOptions({ headers });
         }
     }
 }

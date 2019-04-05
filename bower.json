@@ -1,0 +1,17 @@
+{
+  "name": "angular_shop_admin",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "https://github.com/sartim/angular_shop_admin",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "admin-assets": "*"
+  }
+}

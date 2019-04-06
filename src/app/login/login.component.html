@@ -9,7 +9,7 @@
                 </div>
                 <div class="row margin">
                     <div class="input-field col s12" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-                        <i class="mdi-social-person-outline prefix"></i>
+                        <i class="material-icons prefix pt-2">person_outline</i>
                         <input id="email" type="text" name="email" [(ngModel)]="model.email" #email="ngModel" required>
                         <label for="email">Email</label>
                         <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="row margin">
                     <div class="input-field col s12" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                        <i class="mdi-action-lock-outline prefix"></i>
+                        <i class="material-icons prefix pt-2">lock_outline</i>
                         <input id="password" type="password" name="password" [(ngModel)]="model.password" #password="ngModel" required>
                         <label for="password">Password</label>
                         <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="input-field col s12 m12 l12  login-text">
                         <input type="checkbox" id="remember-me" />
-                        <label for="remember-me">Remember me</label>
+                        <!--<label for="remember-me">Remember me</label>-->
                     </div>
                 </div>
                 <div class="row">

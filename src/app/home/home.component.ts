@@ -1,15 +1,16 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import {Router} from '@angular/router'
-
 import { User } from '../_models';
 import { Order } from '../_models';
-
 import { UserService } from '../_services';
 import { OrderService } from '../_services';
 import { AlertService, AuthenticationService } from '../_services';
-import { AmChartsService, AmChart } from '@amcharts/amcharts3-angular';
-
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4charts from '@amcharts/amcharts4/charts';
+import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+
+am4core.useTheme(am4themes_animated);
 
 
 @Component({
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     loggedUser: User;
 
-    private chart: AmChart;
+    private chart: am4charts.XYChart;
 
     private timer: any;
 
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private alertService: AlertService,
         private orderService: OrderService,
         private router: Router,
-        private AmCharts: AmChartsService,
+        private zone: NgZone,
         private http: Http) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (this.currentUser) {
@@ -55,12 +56,48 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.authenticationService.getNewTokenHandler(); // To get new token after 2 minutes
         this.loadOrdersToday(); // To get orders today
         this.loadOrdersPlot(); // For orders graph with amcharts plugin
-        //this.loadAllDelivered(0); // To get total orders
+        // this.loadAllDelivered(0); // To get total orders
         this.orderService.getOrdersPlot().forEach(orders_plot => {
 
              console.log(orders_plot);
         });
         this.initScript();
+    }
+
+    ngAfterViewInit() {
+        this.zone.runOutsideAngular(() => {
+            const chart = am4core.create('chartdiv', am4charts.XYChart);
+            chart.paddingRight = 20;
+            const data = [];
+            let visits = 10;
+            for (let i = 1; i < 366; i++) {
+                visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+                data.push({ date: new Date(2018, 0, i), name: "name" + i, value: visits });
+            }
+            chart.data = data;
+            const dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+            dateAxis.renderer.grid.template.location = 0;
+            const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            valueAxis.tooltip.disabled = true;
+            valueAxis.renderer.minWidth = 35;
+            const series = chart.series.push(new am4charts.LineSeries());
+            series.dataFields.dateX = 'date';
+            series.dataFields.valueY = 'value';
+            series.tooltipText = '{valueY.value}';
+            chart.cursor = new am4charts.XYCursor();
+            const scrollbarX = new am4charts.XYChartScrollbar();
+            scrollbarX.series.push(series);
+            chart.scrollbarX = scrollbarX;
+            this.chart = chart;
+        });
+    }
+
+    ngOnDestroy() {
+      this.zone.runOutsideAngular(() => {
+        if (this.chart) {
+          this.chart.dispose();
+        }
+      });
     }
 
     initScript() {
@@ -71,127 +108,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         document.getElementById('header').style.display = 'block';
         document.getElementById('left-sidebar-nav').style.display = 'block';
         document.getElementById('fab_id').style.display = 'block';
-        //document.getElementById('main').removeAttribute('id');
-    }
-
-    makeRandomDataProvider() {
-        this.http.get('https://ordering-api.herokuapp.com/api/v1/order/plot/', this.userService.jwt())
-        .map(res => res.json()).subscribe(
-            data => {
-                this.orders_plot = data;
-                this.orders_plot.forEach(m => this.dataProvider.push(
-                    {
-                        'date': m.date,
-                        'value': m.value
-
-                    }
-                ));
-            });
-        return this.dataProvider;
-    }
-
-    ngAfterViewInit() {
-
-        this.chart = this.AmCharts.makeChart('chartdiv', {
-            'type': 'serial',
-            'theme': 'light',
-            'marginRight': 40,
-            'marginLeft': 40,
-            'autoMarginOffset': 20,
-            'mouseWheelZoomEnabled':true,
-            'dataDateFormat': 'YYYY-MM-DD',
-            'valueAxes': [{
-                'id': 'v1',
-                'axisAlpha': 0,
-                'position': 'left',
-                'ignoreAxisWidth':true
-            }],
-            'balloon': {
-                'borderThickness': 1,
-                'shadowAlpha': 0
-            },
-            'graphs': [{
-                'id': 'g1',
-                'balloon':{
-                    'drop':true,
-                    'adjustBorderColor':false,
-                    'color': '#ffffff'
-                },
-                'bullet': 'round',
-                'bulletBorderAlpha': 1,
-                'bulletColor': '#FFFFFF',
-                'bulletSize': 5,
-                'hideBulletsCount': 50,
-                'lineThickness': 2,
-                'title': 'red line',
-                'useLineColorForBulletBorder': true,
-                'valueField': 'value',
-                'balloonText': '<span style="font-size:18px;">[[value]]</span>'
-            }],
-            'chartScrollbar': {
-                'graph': 'g1',
-                'oppositeAxis':false,
-                'offset':30,
-                'scrollbarHeight': 80,
-                'backgroundAlpha': 0,
-                'selectedBackgroundAlpha': 0.1,
-                'selectedBackgroundColor': '#888888',
-                'graphFillAlpha': 0,
-                'graphLineAlpha': 0.5,
-                'selectedGraphFillAlpha': 0,
-                'selectedGraphLineAlpha': 1,
-                'autoGridCount': true,
-                'color': '#AAAAAA'
-            },
-            'chartCursor': {
-                'pan': true,
-                'valueLineEnabled': true,
-                'valueLineBalloonEnabled': true,
-                'cursorAlpha':1,
-                'cursorColor': '#258cbb',
-                'limitToGraph': 'g1',
-                'valueLineAlpha': 0.2,
-                'valueZoomable': true
-            },
-            'valueScrollbar':{
-                'oppositeAxis': false,
-                'offset': 50,
-                'scrollbarHeight': 10
-            },
-            'categoryField': 'date',
-            'categoryAxis': {
-                'parseDates': true,
-                'dashLength': 1,
-                'minorGridEnabled': true
-            },
-            'export': {
-                'enabled': true
-            },
-
-            'dataProvider': this.makeRandomDataProvider()
-        });
-
-        // Updates the chart every 2 seconds
-        this.timer = setInterval(() => {
-            // This must be called when making any changes to the chart
-            this.AmCharts.updateChart(this.chart, () => {
-                // this.chart.dataProvider = this.makeRandomDataProvider();
-
-                this.chart.addListener('init', () => {
-                    // Do stuff after the chart is initialized
-                });
-                this.chart.addListener('rendered', () => {
-                    this.chart.zoomToIndexes(this.chart.dataProvider.length - 40, this.chart.dataProvider.length - 1);
-                });
-            });
-        }, 2000);
-    }
-
-    ngOnDestroy() {
-      clearInterval(this.timer);
-      if (this.chart) {
-          this.AmCharts.destroyChart(this.chart);
-      }
+        // document.getElementById('main').removeAttribute('id');
     }
 
     deleteUser(id: number) {

@@ -1,73 +1,136 @@
-<aside id="left-sidebar-nav">
-    <ul id="slide-out" class="side-nav fixed leftside-navigation" style="overflow: auto">
-        <li class="user-details cyan darken-2">
-            <div class="row">
-                <div class="col col s4 m4 l4">
-                    <img src="../../assets/images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
-                </div>
-                <div class="col col s8 m8 l8">
-                    <ul id="profile-dropdown" class="dropdown-content">
-                        <li><a href="#"><i class="mdi-action-face-unlock"></i> Profile</a>
-                        </li>
-                        <li><a href="#"><i class="mdi-action-settings"></i> Settings</a>
-                        </li>
-                        <li><a href="#"><i class="mdi-communication-live-help"></i> Help</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="mdi-action-lock-outline"></i> Lock</a>
-                        </li>
-                        <li><a [routerLink]="['/login']"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown"><span id="logged_in_user">{{ currentUser.user.username }}</span><i class="mdi-navigation-arrow-drop-down right"></i></a>
-                    <p class="user-roal">Administrator</p>
-                </div>
+<aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible">
+    <div class="brand-sidebar">
+      <h1 class="logo-wrapper">
+        <a href="#" class="brand-logo darken-1">
+          <!--<img src="#" alt="ADMIN"/>-->
+          <span class="logo-text hide-on-med-and-down">ADMIN</span>
+        </a>
+        <a href="#" class="navbar-toggler" onclick="">
+          <i class="material-icons">radio_button_checked</i>
+        </a>
+      </h1>
+    </div>
+    <ul id="slide-out" class="side-nav fixed leftside-navigation">
+      <li class="side-user-info">
+        <a [routerLink]="['/profile']">
+          <img src="/assets/admin-assets/img/default_user.png"
+               class="side-user-img responsive" />
+          <span class="side-user-name">{{ currentUser.user.full_name }}</span>
+        </a>
+      </li>
+      <li class="no-padding">
+        <ul class="collapsible" data-collapsible="accordion">
+          <li class="bold">
+            <a class="collapsible-header waves-effect waves-cyan">
+              <i class="material-icons">dashboard</i>
+              <span class="nav-text">Dashboard</span>
+            </a>
+            <div class="collapsible-body">
+              <ul>
+                <li class="active">
+                  <a [routerLink]="['/']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                      <span>Orders</span>
+                    </a>
+                </li>
+              </ul>
             </div>
-        </li>
-        <li class="bold active"><a [routerLink]="['/']" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Dashboard</a>
-        </li>
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-view-carousel"></i> Orders</a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a [routerLink]="['/order-list']">Orders</a></li>
-                        </ul>
-                    </div>
+          </li>
+          <li class="bold">
+            <a class="collapsible-header  waves-effect waves-cyan">
+              <i class="material-icons">view_comfy</i>
+              <span class="nav-text">Orders</span>
+            </a>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a [routerLink]="['/order/pending']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span>Pending</span>
+                  </a>
                 </li>
-                <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-invert-colors"></i> Categories</a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a href="/manage-categories">Manage Categories</a>
-                            </li>
-                        </ul>
-                    </div>
+                <li>
+                  <a [routerLink]="['/order/in-progress']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span>In progress</span>
+                  </a>
                 </li>
-                <li class="bold"><a class="collapsible-header  waves-effect waves-cyan"><i class="mdi-image-palette"></i> Products</a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a href="/manage-products">Manage Products</a>
-                            </li>
-                        </ul>
-                    </div>
+                <li>
+                  <a [routerLink]="['/order/delivered']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span>Delivered</span>
+                  </a>
                 </li>
-            </ul>
-        </li>
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-chart"></i> Reports</a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a href="#">Revenue</a>
-                            </li>
-                        </ul>
-                    </div>
+                <li>
+                  <a [routerLink]="['/order/all']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span>All</span>
+                  </a>
                 </li>
-            </ul>
-        </li>
-        <li class="li-hover">
-            <div class="divider"></div>
-        </li>
+              </ul>
+            </div>
+          </li>
+          <li class="bold">
+            <a class="collapsible-header  waves-effect waves-cyan">
+              <i class="material-icons">view_comfy</i>
+              <span class="nav-text">Products</span>
+            </a>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a [routerLink]="['/product/list']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span>List</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/product/report']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span>Report</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="bold">
+            <a class="collapsible-header  waves-effect waves-cyan">
+              <i class="material-icons">account_box</i>
+              <span class="nav-text">User</span>
+            </a>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a [routerLink]="['/user/list']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span>User List</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/user/role']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span>User Roles</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="li-hover">
+        <p class="ultra-small margin more-text">MORE</p>
+      </li>
+      <li>
+        <a [routerLink]="['/profile']">
+          <i class="material-icons">account_circle</i>
+          <span class="nav-text">Profile</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/settings']">
+          <i class="material-icons">settings</i>
+          <span class="nav-text">Settings</span>
+        </a>
+      </li>
     </ul>
-    <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
+    <a href="#" data-target="slide-out" onclick="" class="sidenav-trigger sidebar-collapse btn-floating btn-medium hide-on-large-only gradient-45deg-light-blue-cyan gradient-shadow"><i class="material-icons">menu</i></a>
 </aside>

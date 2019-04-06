@@ -1,63 +1,94 @@
-<!-- START HEADER -->
 <header id="header" class="page-topbar">
-    <!-- start header nav-->
-    <div class="navbar-fixed">
-        <nav class="navbar-color cyan darken-2">
-            <div class="nav-wrapper">
-                <ul class="left">
-                    <li>
-                        <h1 class="logo-wrapper">
-                            <a href="/" class="brand-logo darken-1">
-                                <h6> ADMIN DASHBOARD</h6>
-                            </a> <span class="logo-text">Welcome</span>
-                        </h1>
-                    </li>
-                </ul>
-                <div class="header-search-wrapper hide-on-med-and-down">
-                    <i class="mdi-action-search"></i>
-                    <i class="mdi-navigation-arrow-drop-down right"></i>
-                    <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Seach" />
-                </div>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen"><i class="mdi-action-settings-overscan"></i></a>
-                    </li>
-                    <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown"><i class="mdi-social-notifications"><small class="notification-badge">6566</small></i>
-
-                            </a>
-                    </li>
-                    <li><a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse"><i class="mdi-communication-chat"></i></a>
-                    </li>
-                </ul>
-                <!-- notifications-dropdown -->
-                <ul id="notifications-dropdown" class="dropdown-content">
-                    <li>
-                        <h5>NOTIFICATIONS <span class="new badge">5</span></h5>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#!"><i class="mdi-action-add-shopping-cart"></i> A new order has been placed!</a>
-                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
-                    </li>
-                    <li>
-                        <a href="#!"><i class="mdi-action-stars"></i> Completed the task</a>
-                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
-                    </li>
-                    <li>
-                        <a href="#!"><i class="mdi-action-settings"></i> Settings updated</a>
-                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
-                    </li>
-                    <li>
-                        <a href="#!"><i class="mdi-editor-insert-invitation"></i> Director meeting started</a>
-                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
-                    </li>
-                    <li>
-                        <a href="#!"><i class="mdi-action-trending-up"></i> Generate monthly report</a>
-                        <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <!-- end header nav-->
+ <div class="navbar-fixed">
+   <nav class="navbar-color">
+     <div class="nav-wrapper">
+       <div class="header-search-wrapper hide-on-med-and-down sideNav-lock">
+         <i class="material-icons">search</i>
+         <form onsubmit="">
+         <input type="text" class="header-search-input z-depth-2" placeholder="Search anything"
+         value="" onchange="" />
+         </form>
+       </div>
+       <ul class="right hide-on-med-and-down">
+         <li>
+          <a href="javascript:void(0);" class="dropdown-trigger" data-target="notifications-dropdown">
+            <i class="material-icons">notifications_none
+              <small class="notification-badge">5</small>
+            </i>
+          </a>
+          <ul id="notifications-dropdown" class="dropdown-content">
+            <li>
+              <h6>NOTIFICATIONS
+                <span class="new badge">5</span>
+              </h6>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#!" class="grey-text text-darken-2">
+                <span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span> A new article has been posted!</a>
+              <time class="media-meta" dateTime="2015-06-12T20:50:48+08:00">2 hours ago</time>
+            </li>
+            <li>
+              <a href="#!" class="grey-text text-darken-2">
+                <span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>
+              <time class="media-meta" dateTime="2015-06-12T20:50:48+08:00">3 days ago</time>
+            </li>
+            <li>
+              <a href="#!" class="grey-text text-darken-2">
+                <span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
+              <time class="media-meta" dateTime="2015-06-12T20:50:48+08:00">4 days ago</time>
+            </li>
+            <li>
+              <a href="#!" class="grey-text text-darken-2">
+                <span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>
+              <time class="media-meta" dateTime="2015-06-12T20:50:48+08:00">6 days ago</time>
+            </li>
+            <li>
+              <a href="#!" class="grey-text text-darken-2">
+                <span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>
+              <time class="media-meta" dateTime="2015-06-12T20:50:48+08:00">1 week ago</time>
+            </li>
+          </ul>
+         </li>
+         <li>
+           <a href="javascript:void(0);" class="dropdown-trigger"
+              data-target="profile-dropdown">
+              <span class="avatar-status avatar-online">
+                <img src="/assets/img/default_user.png"
+                     class="img center responsive"/>
+              </span>
+           </a>
+           <ul id="profile-dropdown" class="dropdown-content drop-down">
+             <li>
+               <a href="#" class="grey-text text-darken-1">
+                 <i class="material-icons">face</i> Profile</a>
+             </li>
+             <li>
+               <a href="#" class="grey-text text-darken-1">
+                 <i class="material-icons">settings</i> </a>
+             </li>
+             <li>
+               <a href="#" class="grey-text text-darken-1">
+                 <i class="material-icons">live_help</i> Help</a>
+             </li>
+             <li class="divider"></li>
+             <li>
+               <a href="#" class="grey-text text-darken-1">
+                 <i class="material-icons">lock_outline</i> Lock</a>
+             </li>
+             <li>
+                 <a [routerLink]="['/login']"><i
+                 class="material-icons">keyboard_tab</i> Logout</a>
+             </li>
+           </ul>
+         </li>
+         <li>
+            <a href="javascript:void(0);" data-target="slide-out" onclick="" class="sidenav-trigger chat-collapse">
+              <i class="material-icons">format_indent_increase</i>
+            </a>
+         </li>
+       </ul>
+     </div>
+   </nav>
+ </div>
 </header>
-<!-- END HEADER -->

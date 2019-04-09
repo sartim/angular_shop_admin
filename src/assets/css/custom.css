@@ -184,3 +184,7 @@ li.side-user-info:hover {
 .line-height-0 {
   font-size: 14px;
 }
+.dropdown-content {
+    width: 290px !important;
+    left: 900px !important;
+}

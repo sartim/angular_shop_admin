@@ -19,7 +19,7 @@
     "@angular/core": "~7.2.0",
     "@angular/forms": "~7.2.0",
     "@angular/http": "^7.2.0",
-    "@angular/platform-browser": "~7.2.0",
+    "@angular/platform-browser": "~10.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "amcharts3": "github:amcharts/amcharts3",

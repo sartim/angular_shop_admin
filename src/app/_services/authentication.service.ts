@@ -1,5 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { map } from 'rxjs/operators';
+// @ts-ignore
+import apiUrl from '../config/api';
 
 
 @Injectable()
@@ -13,10 +16,8 @@ export class AuthenticationService {
             'Content-Type': 'application/json'
         });
         const options = { headers };
-
-        const login = this.http.post(  '/account/generate/jwt/', body, options)
-            // @ts-ignore
-            .map((response: Response) => {
+        const login = this.http.post<any>(apiUrl +  '/account/generate/jwt/', body, options)
+            .pipe(map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 const user = response.json();
                 // @ts-ignore
@@ -26,7 +27,7 @@ export class AuthenticationService {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
                 return user;
-            });
+            }));
 
         return login;
     }
@@ -38,9 +39,8 @@ export class AuthenticationService {
             });
             const options = { headers };
 
-            const refresh = this.http.post('https://ordering-api.herokuapp.com/api/v1/auth/token-refresh/', body, options)
-                // @ts-ignore
-                .map((response: Response) => {
+            const refresh = this.http.post<any>(apiUrl +  '/account/token-refresh/', body, options)
+                .pipe(map((response: Response) => {
                     // login successful if there's a jwt token in the response
                     const user = response.json();
                     // @ts-ignore
@@ -51,7 +51,7 @@ export class AuthenticationService {
                         console.log('updated token');
                     }
                     return user;
-                });
+                }));
 
             return refresh;
     }

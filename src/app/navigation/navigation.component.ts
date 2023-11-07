@@ -15,10 +15,11 @@ export class NavigationComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
 
-    loggedUser: User;
+    loggedUser!: User;
 
 
     constructor(private orderService: OrderService) {
+        // @ts-ignore
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (this.currentUser) {
             console.log(this.currentUser.user.username);
@@ -28,8 +29,8 @@ export class NavigationComponent implements OnInit {
         this.loadAllActive(0); // To get total orders
     }
 
-    private loadAllActive(offset) {
-        const load_all_ = this.orderService.getAllOrders(offset);
-        load_all_.subscribe(orders => { this.orders = orders; });
+    private loadAllActive(offset: any) {
+        const loadAll = this.orderService.getAllOrders(offset);
+        loadAll.subscribe((orders: Order[]) => { this.orders = orders; });
     }
 }

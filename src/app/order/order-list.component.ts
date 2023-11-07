@@ -2,9 +2,9 @@ import 'rxjs/add/operator/switchMap';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../_models/index';
-import { OrderService } from '../_services/index';
-import { Order } from '../_models/index';
+import { User } from '../_models';
+import { OrderService } from '../_services';
+import { Order } from '../_models';
 
 
 @Component({
@@ -17,12 +17,12 @@ import { Order } from '../_models/index';
     `]
 })
 export class OrderListComponent implements OnInit {
-    orders: Order;
+    orders!: Order;
     users: User[] = [];
 
-    selectedOrder: Order;
+    selectedOrder!: Order;
 
-    loggedUser: User;
+    loggedUser!: User;
 
     private f = 0;
 
@@ -31,7 +31,7 @@ export class OrderListComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit() {
-      this.loadAllDelivered(0);
+      this.loadAllDelivered({offset: 0});
     }
 
     gotoDetail(id: number) {
@@ -39,12 +39,12 @@ export class OrderListComponent implements OnInit {
     }
 
     pageOffset() {
-      const inc_offset = this.f += 20;
-      this.loadAllDelivered(inc_offset);
+      const incOffset = this.f += 20;
+      this.loadAllDelivered({offset: incOffset});
     }
 
-    private loadAllDelivered(offset) {
-      const load_all_ = this.orderService.getAllOrders(offset);
-      load_all_.subscribe(orders => { this.orders = orders; });
+    private loadAllDelivered({offset}: { offset: any }) {
+      const loadAll = this.orderService.getAllOrders(offset);
+      loadAll.subscribe((orders: Order) => { this.orders = orders; });
     }
 }

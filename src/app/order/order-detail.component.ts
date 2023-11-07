@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { OrderService } from '../_services/index';
 import { Order } from '../_models/index';
 import { AlertService, AuthenticationService } from '../_services/index';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
     moduleId: module.id,
@@ -21,8 +22,8 @@ export class OrderDetailComponent implements OnInit {
 
     ngOnInit() {
         this.route.paramMap
-        .switchMap((params: ParamMap) => this.orderService.getOrderById(+params.get('id')))
-        .subscribe(orders => this.orders = orders);
+            .pipe(switchMap((params: ParamMap) => this.orderService.getOrderById(params.get('id'))))
+            .subscribe((orders: Order[]) => this.orders = orders);
         // subscribe to router event
       // this.route.params.subscribe((params: Params) => {
       //     let id = params['id'];
@@ -31,8 +32,8 @@ export class OrderDetailComponent implements OnInit {
       //   });
     }
 
-    private getDel(id) {
-      this.orderService.getOrderById(id).subscribe(orders => this.orders = orders);
+    private getDel(id: any) {
+      this.orderService.getOrderById(id).subscribe((orders: Order[]) => this.orders = orders);
     }
 
     goBack(): void {

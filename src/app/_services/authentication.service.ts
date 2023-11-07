@@ -1,51 +1,59 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import apiUrl from '../config/api.js';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     login(email: string, password: string) {
-        const body = JSON.stringify({ email: email, password: password });
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({ headers: headers });
+        // @ts-ignore
+        const body = JSON.stringify({ email, password });
+        const headers =  new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+        const options = { headers };
 
-        const login = this.http.post(apiUrl + '/account/generate/jwt/', body, options)
+        const login = this.http.post(  '/account/generate/jwt/', body, options)
+            // @ts-ignore
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 const user = response.json();
+                // @ts-ignore
                 if (user && user.access_token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    // @ts-ignore
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
                 return user;
             });
 
-        return login
+        return login;
     }
 
     refresh() {
-            let body = localStorage.getItem('currentUser');
-            let headers = new Headers({ 'Content-Type': 'application/json' });
-            let options = new RequestOptions({ headers: headers });
+            const body = localStorage.getItem('currentUser');
+            const headers =  new HttpHeaders({
+                'Content-Type': 'application/json'
+            });
+            const options = { headers };
 
-            let refresh = this.http.post('https://ordering-api.herokuapp.com/api/v1/auth/token-refresh/', body, options)
-                .map((response: Response) =>
-                {
+            const refresh = this.http.post('https://ordering-api.herokuapp.com/api/v1/auth/token-refresh/', body, options)
+                // @ts-ignore
+                .map((response: Response) => {
                     // login successful if there's a jwt token in the response
-                    let user = response.json();
+                    const user = response.json();
+                    // @ts-ignore
                     if (user && user.token) {
                         // store user details and jwt token in local storage to keep user logged in between page refreshes
+                        // @ts-ignore
                         localStorage.setItem('currentUser', JSON.stringify(user));
-                        console.log("updated token");
+                        console.log('updated token');
                     }
                     return user;
                 });
 
-            return refresh
+            return refresh;
     }
 
     logout() {
@@ -54,13 +62,14 @@ export class AuthenticationService {
         localStorage.removeItem('loggedUser');
     }
 
-    getNewTokenHandler(){
+    getNewTokenHandler() {
         setInterval(() => this.getNewToken(), 120000);
     }
 
     getNewToken() {
-        if (localStorage.getItem('currentUser')){
+        if (localStorage.getItem('currentUser')) {
             this.refresh().subscribe();
+            return;
         } else {
             return false;
         }

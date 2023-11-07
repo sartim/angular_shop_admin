@@ -17,10 +17,10 @@ import { Category } from '../_models/index';
     `]
 })
 export class CategoryListComponent implements OnInit {
-    categories: Category;
+    categories!: Category;
     users: User[] = [];
 
-    loggedUser: User;
+    loggedUser!: User;
 
     private f = 0;
 
@@ -37,12 +37,12 @@ export class CategoryListComponent implements OnInit {
     }
 
     pageOffset() {
-      const inc_offset = this.f += 20;
-      this.loadCategories(inc_offset);
+      const incOffset = this.f += 20;
+      this.loadCategories(incOffset);
     }
 
-    private loadCategories(offset) {
-      const load_all_ = this.categoryService.getCategory(offset);
-      load_all_.subscribe(categories => { this.categories = categories; });
+    private loadCategories(offset: any) {
+      const loadAll = this.categoryService.getCategory(offset);
+      loadAll.subscribe((categories: Category) => { this.categories = categories; });
     }
 }

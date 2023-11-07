@@ -23,12 +23,12 @@ export class UserService {
     }
     getAll() {
         // @ts-ignore
-        return this.http.get('/account/user/', this.jwt()).map((response: Response) => response.json());
+        return this.http.get(apiUrl + '/account/user/', this.jwt()).map((response: Response) => response.json());
     }
 
     getById(id: number) {
         // @ts-ignore
-        return this.http.get('/account/user/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(apiUrl + '/account/user/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     create(user: User) {
@@ -38,12 +38,12 @@ export class UserService {
 
     update(user: User) {
         // @ts-ignore
-        return this.http.put('/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
+        return this.http.put(apiUrl + '/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
     }
 
     delete(id: number) {
         // @ts-ignore
-        return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.delete(apiUrl + '/api/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     // private helper methods

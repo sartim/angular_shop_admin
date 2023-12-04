@@ -36,6 +36,6 @@ username: `demo`
 password: `qwertytrewq`
 
 
-####### Dashboard
+###### Dashboard
 
 ![Dashboard](https://github.com/sartim/angular_shop_admin/blob/master/src/assets/img/dashboard.png?raw=true)

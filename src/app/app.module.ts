@@ -8,7 +8,7 @@ import { routing } from './app.routing';
 import { AuthGuard } from './_guards';
 import { AlertService, AuthenticationService, UserService, OrderService, CategoryService } from './_services';
 import { HomeComponent } from './home';
-// import { OrderListComponent, OrderDetailComponent } from './order';
+import { OrderListComponent, OrderDetailComponent } from './order';
 // import { CategoryListComponent, CategoryDetailComponent } from './category';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
@@ -29,8 +29,8 @@ import {HttpClientModule} from '@angular/common/http';
         AppComponent,
         HomeComponent,
         // AlertComponent,
-        // OrderListComponent,
-        // OrderDetailComponent,
+        OrderListComponent,
+        OrderDetailComponent,
         // CategoryListComponent,
         // CategoryDetailComponent,
         LoginComponent,

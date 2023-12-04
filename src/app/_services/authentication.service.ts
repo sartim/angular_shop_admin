@@ -1,51 +1,58 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import apiUrl from '../config/api.js';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { map } from 'rxjs/operators';
+// @ts-ignore
+import apiUrl from '../config/api';
+
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
     login(email: string, password: string) {
-        const body = JSON.stringify({ email: email, password: password });
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({ headers: headers });
-
-        const login = this.http.post(apiUrl + '/account/generate/jwt/', body, options)
-            .map((response: Response) => {
+        // @ts-ignore
+        const body = JSON.stringify({ email, password });
+        const headers =  new HttpHeaders({
+            'Content-Type': 'application/json'
+        });
+        const options = { headers };
+        const login = this.http.post<any>(apiUrl +  '/api/v1/auth/generate-jwt', body, options)
+            .pipe(map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                const user = response.json();
-                if (user && user.access_token) {
+                // @ts-ignore
+                if (response && response.access_token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    // @ts-ignore
+                    localStorage.setItem('currentUser', JSON.stringify(response));
                 }
-                return user;
-            });
+                return response;
+            }));
 
-        return login
+        return login;
     }
 
     refresh() {
-            let body = localStorage.getItem('currentUser');
-            let headers = new Headers({ 'Content-Type': 'application/json' });
-            let options = new RequestOptions({ headers: headers });
+            const body = localStorage.getItem('currentUser');
+            const headers =  new HttpHeaders({
+                'Content-Type': 'application/json'
+            });
+            const options = { headers };
 
-            let refresh = this.http.post('https://ordering-api.herokuapp.com/api/v1/auth/token-refresh/', body, options)
-                .map((response: Response) =>
-                {
+            const refresh = this.http.post<any>(apiUrl +  '/account/token-refresh/', body, options)
+                .pipe(map((response: Response) => {
                     // login successful if there's a jwt token in the response
-                    let user = response.json();
+                    const user = response.json();
+                    // @ts-ignore
                     if (user && user.token) {
                         // store user details and jwt token in local storage to keep user logged in between page refreshes
+                        // @ts-ignore
                         localStorage.setItem('currentUser', JSON.stringify(user));
-                        console.log("updated token");
+                        console.log('updated token');
                     }
                     return user;
-                });
+                }));
 
-            return refresh
+            return refresh;
     }
 
     logout() {
@@ -54,13 +61,14 @@ export class AuthenticationService {
         localStorage.removeItem('loggedUser');
     }
 
-    getNewTokenHandler(){
+    getNewTokenHandler() {
         setInterval(() => this.getNewToken(), 120000);
     }
 
     getNewToken() {
-        if (localStorage.getItem('currentUser')){
+        if (localStorage.getItem('currentUser')) {
             this.refresh().subscribe();
+            return;
         } else {
             return false;
         }

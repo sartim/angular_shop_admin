@@ -1,4 +1,5 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿/* tslint:disable:no-string-literal */
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService, AuthenticationService } from '../_services';
 
@@ -12,7 +13,7 @@ import { AlertService, AuthenticationService } from '../_services';
 export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
-    returnUrl: string;
+    returnUrl!: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -33,11 +34,11 @@ export class LoginComponent implements OnInit {
         this.loading = true;
         this.authenticationService.login(this.model.email, this.model.password)
             .subscribe(
-                data => {
+                (data: any) => {
                     this.router.navigate([this.returnUrl]);
                 },
-                error => {
-                    this.alertService.error(error);
+                (error: string) => {
+                    // this.alertService.error(error);
                     this.loading = false;
                 });
     }
@@ -49,9 +50,13 @@ export class LoginComponent implements OnInit {
         document.body.style.verticalAlign = 'middle';
         document.documentElement.style.display = 'table';
         document.documentElement.style.margin = 'auto';
+        // @ts-ignore
         document.getElementById('header').style.display = 'none';
+        // @ts-ignore
         document.getElementById('left-sidebar-nav').style.display = 'none';
+        // @ts-ignore
         document.getElementById('fab_id').style.display = 'none';
+        // @ts-ignore
         document.getElementById('main').removeAttribute('id');
     }
 }

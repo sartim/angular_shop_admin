@@ -15,7 +15,7 @@
         <a [routerLink]="['/profile']">
           <img src="/assets/admin-assets/img/default_user.png"
                class="side-user-img responsive" />
-          <span class="side-user-name">{{ currentUser.user.full_name }}</span>
+          <span class="side-user-name" *ngIf="currentUser">{{ currentUser.user.firstName }}</span>
         </a>
       </li>
       <li class="no-padding">

@@ -1,28 +1,32 @@
-import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { OrderService } from '../_services/index';
-import { Order } from '../_models/index';
+import { OrderDetail } from '../_models/index';
 import { AlertService, AuthenticationService } from '../_services/index';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
     moduleId: module.id,
     templateUrl: 'order-detail.component.html'
 })
 export class OrderDetailComponent implements OnInit {
-    orders: Order[] = [];
+    order: OrderDetail;
 
     constructor(
         private orderService: OrderService,
         private route: ActivatedRoute,
-        private location: Location) { }
+        private location: Location) {
+        this.order = new OrderDetail();
+    }
 
     ngOnInit() {
         this.route.paramMap
-        .switchMap((params: ParamMap) => this.orderService.getOrderById(+params.get('id')))
-        .subscribe(orders => this.orders = orders);
+            .pipe(switchMap((params: ParamMap) => this.orderService.getOrderById(params.get('id'))))
+            .subscribe((order: OrderDetail) => {
+                this.order = order;
+            });
         // subscribe to router event
       // this.route.params.subscribe((params: Params) => {
       //     let id = params['id'];
@@ -31,8 +35,8 @@ export class OrderDetailComponent implements OnInit {
       //   });
     }
 
-    private getDel(id) {
-      this.orderService.getOrderById(id).subscribe(orders => this.orders = orders);
+    private getDel(id: any) {
+      this.orderService.getOrderById(id).subscribe((order: OrderDetail) => this.order = order);
     }
 
     goBack(): void {

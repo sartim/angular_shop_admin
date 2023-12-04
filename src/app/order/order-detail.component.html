@@ -1,23 +1,23 @@
 <!-- ./End breadcrumb -->
 <div class="row">
     <div class="col s12">
-      <div *ngIf="orders">
+      <div *ngIf="order">
         <button class="btn grey waves-effect waves-light" (click)="goBack()">Back</button>
          <div class="row">
              <div class="col s6">
                   <h6>Customer Info</h6>
                   <label>
                       Customer Name:
-                      {{ orders.user.first_name }}
-                      {{ orders.user.last_name }}
+                      {{ order.user.firstName }}
+                      {{ order.user.lastName }}
                   </label>  <br>
                  <label>
                      Customer Email:
-                     {{ orders.user.email }}
+                     {{ order.user.email }}
                  </label>
              </div>
               <div class="input-field col s12 center">
-                  <p class="center login-form-text">{{orders.id}}</p>
+                  <p class="center login-form-text">{{order.id}}</p>
               </div>
           </div>
 

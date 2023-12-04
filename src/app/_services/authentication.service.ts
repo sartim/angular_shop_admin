@@ -25,7 +25,7 @@ export class AuthenticationService {
                     // @ts-ignore
                     localStorage.setItem('currentUser', JSON.stringify(user));
                 }
-                return user;
+                return response;
             }));
 
         return login;

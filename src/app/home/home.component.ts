@@ -8,7 +8,7 @@ import { AlertService, AuthenticationService } from '../_services';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 am4core.useTheme(am4themes_animated);
 
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private orderService: OrderService,
         private router: Router,
         private zone: NgZone,
-        private http: Http) {
+        private http: HttpClient) {
         // @ts-ignore
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (this.currentUser) {

@@ -34,3 +34,8 @@ Angular 16 Shop admin dashboard. Content management system for managing an onlin
 username: `demo`
 
 password: `qwertytrewq`
+
+
+####### Dashboard
+
+![Dashboard](https://github.com/sartim/angular_shop_admin/blob/master/src/assets/img/dashboard.png?raw=true)

@@ -16,12 +16,11 @@ export class AuthenticationService {
             'Content-Type': 'application/json'
         });
         const options = { headers };
-        const login = this.http.post<any>(apiUrl +  '/account/generate/jwt/', body, options)
+        const login = this.http.post<any>(apiUrl +  '/api/v1/auth/generate-jwt', body, options)
             .pipe(map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                const user = response.json();
                 // @ts-ignore
-                if (user && user.access_token) {
+                if (response && response.access_token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     // @ts-ignore
                     localStorage.setItem('currentUser', JSON.stringify(user));

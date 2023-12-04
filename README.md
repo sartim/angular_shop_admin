@@ -1,5 +1,5 @@
 # Angular Shop ADMIN
-Angular 7 Shop admin dashboard. Content management system for managing an online shop for products which is also a web socket client. To run the server source code locally which is also the web socket client use [this](https://github.com/sartim/flask_shop_api.git) repo
+Angular 16 Shop admin dashboard. Content management system for managing an online shop for products which is also a web socket client. To run the server source code locally which is also the web socket client use [this](https://github.com/sartim/flask_shop_api.git) repo
 
 #### Features
 
@@ -34,3 +34,8 @@ Angular 7 Shop admin dashboard. Content management system for managing an online
 username: `demo`
 
 password: `qwertytrewq`
+
+
+####### Dashboard
+
+![Dashboard](https://github.com/sartim/angular_shop_admin/blob/master/src/assets/img/dashboard.png?raw=true)

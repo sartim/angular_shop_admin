@@ -19,7 +19,7 @@ jobs:
         run: |
           sudo apt-get update &&
           sudo apt-get install -y awscli &&
-          sudo snap install bower
+          sudo snap install bower --classic
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:

@@ -32,9 +32,9 @@ Angular 16 Shop admin dashboard. Content management system for managing an onlin
 
 ###### Login Credentials
 
-username: `demo`
+username: `demo@mail.com`
 
-password: `qwertytrewq`
+password: `demo_pass`
 
 
 ###### Dashboard

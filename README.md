@@ -23,6 +23,7 @@ Angular 16 Shop admin dashboard. Content management system for managing an onlin
     $ bower install
     $ npm install
     $ ng serve --open 
+    $ ./scripts/create_api_dot_js.sh
 
 
 **Demo URL**
@@ -31,11 +32,11 @@ Angular 16 Shop admin dashboard. Content management system for managing an onlin
 
 ###### Login Credentials
 
-username: `demo`
+username: `demo@mail.com`
 
-password: `qwertytrewq`
+password: `demo_pass`
 
 
-####### Dashboard
+###### Dashboard
 
 ![Dashboard](https://github.com/sartim/angular_shop_admin/blob/master/src/assets/img/dashboard.png?raw=true)

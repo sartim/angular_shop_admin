@@ -1,0 +1,33 @@
+name: production-build
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-n-deploy:
+    name: Build and deploy to production
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup CI/CD Server
+        run: |
+          sudo apt-get update &&
+          sudo apt-get install -y awscli
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - name: Run build
+        run: npm run build --noninteractive
+        env:
+          CI: false
+      - run: ./scripts/create_api_dot_js.sh
+      # - run: firebase deploy
+

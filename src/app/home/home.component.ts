@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.initScript();
         // this.loadAllUsers();
         this.authenticationService.getNewToken(); // To get new token
         this.authenticationService.getNewTokenHandler(); // To get new token after 2 minutes
@@ -60,7 +61,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.orderService.getOrdersPlot().forEach((orders: any) => {
              console.log(orders);
         });
-        this.initScript();
     }
 
     ngAfterViewInit() {

@@ -1,3 +1,3 @@
-const apiUrl = "http://127.0.0.1:8000";
+const apiUrl = "https://flask-shop-api-git-develop-sartims-projects.vercel.app";
 
 export default apiUrl;

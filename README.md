@@ -23,6 +23,7 @@ Angular 16 Shop admin dashboard. Content management system for managing an onlin
     $ bower install
     $ npm install
     $ ng serve --open 
+    $ ./scripts/create_api_dot_js.sh
 
 
 **Demo URL**

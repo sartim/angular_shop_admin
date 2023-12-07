@@ -18,12 +18,14 @@ jobs:
       - name: Setup CI/CD Server
         run: |
           sudo apt-get update &&
-          sudo apt-get install -y awscli
+          sudo apt-get install -y awscli &&
+          sudo snap install bower
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install --force
+      - run: bower install
       - name: Run build
         run: npm run build --noninteractive
         env:

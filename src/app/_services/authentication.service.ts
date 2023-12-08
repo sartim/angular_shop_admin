@@ -38,7 +38,7 @@ export class AuthenticationService {
             });
             const options = { headers };
 
-            const refresh = this.http.post<any>(apiUrl +  '/account/token-refresh/', body, options)
+            const refresh = this.http.post<any>(apiUrl +  '/api/v1/auth/refresh-jwt', body, options)
                 .pipe(map((response: Response) => {
                     // login successful if there's a jwt token in the response
                     const user = response.json();

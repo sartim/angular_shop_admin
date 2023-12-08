@@ -22,8 +22,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     currentUser: User;
     users: User[] = [];
     orders!: Order;
-    ordersToday: Order[] = [];
-    ordersData: Order[] = [];
+    ordersToday!: Order;
+    ordersData!: Order;
     dataProvider: any = [];
 
     loggedUser!: User;
@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private loadOrdersToday() {
         this.orderService.getOrdersToday().subscribe(
-            (orders: Order[]) => { this.ordersToday = orders; }, (error: any) => {console.log('Error #333'); });
+            (orders: Order) => { this.ordersToday = orders; }, (error: any) => {console.log('Error #333'); });
     }
 
     private loadOrders(offset: any) {
@@ -128,7 +128,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private loadOrdersPlot() {
         this.orderService.getOrdersPlot().subscribe(
-            (orders: Order[]) => { this.ordersData = orders; }, (error: any) => { console.log('Error #333'); });
+            (orders: Order) => { this.ordersData = orders; }, (error: any) => { console.log('Error #333'); });
     }
 
     private loadAllUsers() {

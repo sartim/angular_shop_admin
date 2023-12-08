@@ -21,7 +21,7 @@ am4core.useTheme(am4themes_animated);
 export class HomeComponent implements OnInit, OnDestroy {
     currentUser: User;
     users: User[] = [];
-    orders: Order[] = [];
+    orders!: Order;
     ordersToday: Order[] = [];
     ordersData: Order[] = [];
     dataProvider: any = [];
@@ -123,7 +123,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private loadOrders(offset: any) {
         this.orderService.getAllOrders(offset).subscribe(
-            (orders: Order[]) => { this.orders = orders; }, (error: any) => { console.log('Error #333'); });
+            (orders: Order) => { this.orders = orders; }, (error: any) => { console.log('Error #333'); });
     }
 
     private loadOrdersPlot() {

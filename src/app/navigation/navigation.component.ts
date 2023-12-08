@@ -11,7 +11,7 @@ import { OrderService } from '../_services/index';
     templateUrl: 'navigation.component.html'
 })
 export class NavigationComponent implements OnInit {
-    orders: Order[] = [];
+    orders!: Order;
     currentUser: User;
     users: User[] = [];
 
@@ -31,6 +31,6 @@ export class NavigationComponent implements OnInit {
 
     private loadAllActive(offset: any) {
         const loadAll = this.orderService.getAllOrders(offset);
-        loadAll.subscribe((orders: Order[]) => { this.orders = orders; });
+        loadAll.subscribe((orders: Order) => { this.orders = orders; });
     }
 }

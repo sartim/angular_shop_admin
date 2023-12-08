@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
-import { User } from '../_models/index';
 import {HttpClient} from '@angular/common/http';
+import {Order, OrderDetail} from '../_models';
+// @ts-ignore
+import apiUrl from '../config/api.js';
 
 @Injectable()
 export class OrderService {
@@ -9,37 +11,35 @@ export class OrderService {
 
     getOrdersToday() {
         // @ts-ignore
-        // tslint:disable-next-line:max-line-length
-        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/today/', this.userService.jwt()).map((response: Response) => response.json());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders/today', this.userService.jwt());
     }
 
     getOrdersThisMonth() {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/this-month/', this.userService.jwt()).map((response: Response) => response.json());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders', this.userService.jwt());
     }
 
     getOrdersLastMonth() {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/last-month/', this.userService.jwt()).map((response: Response) => response.json());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders', this.userService.jwt());
     }
 
     getOrdersPlot() {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/plot/', this.userService.jwt()).map((response: Response) => response.json());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders', this.userService.jwt());
     }
 
     getAllOrders(offset: number) {
         // @ts-ignore
-        // tslint:disable-next-line:max-line-length
-        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/' + '?offset=' + offset, this.userService.jwt()).map((response: Response) => response.json());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders' + '?page=' + offset, this.userService.jwt());
     }
 
     getOrderById(id: string | null) {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        return this.http.get('https://ordering-api.herokuapp.com/api/v1/order/' + id + '/', this.userService.jwt()).map((response: Response) => response.json());
+        return this.http.get<OrderDetail>(apiUrl + apiUrl + '/api/v1/orders/' + id, this.userService.jwt());
     }
 }

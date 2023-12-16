@@ -42,25 +42,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         private http: HttpClient) {
         // @ts-ignore
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (this.currentUser) {
-            // @ts-ignore
-            console.log(JSON.stringify(this.currentUser.user.username));
-        } else {
-          location.reload();
+        if (!this.currentUser) {
+           location.reload();
         }
     }
 
     ngOnInit() {
         this.initScript();
         // this.loadAllUsers();
-        this.authenticationService.getNewToken(); // To get new token
         this.authenticationService.getNewTokenHandler(); // To get new token after 2 minutes
-        this.loadOrdersToday(); // To get orders today
-        this.loadOrdersPlot(); // For orders graph with amcharts plugin
+        // this.loadOrdersToday(); // To get orders today
+        // this.loadOrdersPlot(); // For orders graph with amcharts plugin
         // this.loadAllDelivered(0); // To get total orders
-        this.orderService.getOrdersPlot().forEach((orders: any) => {
-             console.log(orders);
-        });
+        // this.orderService.getOrdersPlot().forEach((orders: any) => {
+        //      console.log(orders);
+        // });
     }
 
     ngAfterViewInit() {

@@ -21,16 +21,7 @@ export class NavigationComponent implements OnInit {
     constructor(private orderService: OrderService) {
         // @ts-ignore
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (this.currentUser) {
-            console.log(this.currentUser.user.username);
-        }
     }
     ngOnInit() {
-        this.loadAllActive(0); // To get total orders
-    }
-
-    private loadAllActive(offset: any) {
-        const loadAll = this.orderService.getAllOrders(offset);
-        loadAll.subscribe((orders: Order) => { this.orders = orders; });
     }
 }

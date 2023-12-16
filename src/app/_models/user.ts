@@ -9,7 +9,8 @@
     phone!: string;
     token!: string;
     user!: {
-      username: string,
-      firstName: string,
+        email: string,
+        full_name: string,
+        id: string
     };
 }

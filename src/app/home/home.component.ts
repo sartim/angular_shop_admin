@@ -21,9 +21,9 @@ am4core.useTheme(am4themes_animated);
 export class HomeComponent implements OnInit, OnDestroy {
     currentUser: User;
     users: User[] = [];
-    orders: Order[] = [];
-    ordersToday: Order[] = [];
-    ordersData: Order[] = [];
+    orders!: Order;
+    ordersToday!: Order;
+    ordersData!: Order;
     dataProvider: any = [];
 
     loggedUser!: User;
@@ -42,25 +42,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         private http: HttpClient) {
         // @ts-ignore
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (this.currentUser) {
-            // @ts-ignore
-            console.log(JSON.stringify(this.currentUser.user.username));
-        } else {
-          location.reload();
+        if (!this.currentUser) {
+           location.reload();
         }
     }
 
     ngOnInit() {
-        // this.loadAllUsers();
-        this.authenticationService.getNewToken(); // To get new token
-        this.authenticationService.getNewTokenHandler(); // To get new token after 2 minutes
-        this.loadOrdersToday(); // To get orders today
-        this.loadOrdersPlot(); // For orders graph with amcharts plugin
-        // this.loadAllDelivered(0); // To get total orders
-        this.orderService.getOrdersPlot().forEach((orders: any) => {
-             console.log(orders);
-        });
         this.initScript();
+        // this.loadAllUsers();
+        this.authenticationService.getNewTokenHandler(); // To get new token after 2 minutes
+        // this.loadOrdersToday(); // To get orders today
+        // this.loadOrdersPlot(); // For orders graph with amcharts plugin
+        // this.loadAllDelivered(0); // To get total orders
+        // this.orderService.getOrdersPlot().forEach((orders: any) => {
+        //      console.log(orders);
+        // });
     }
 
     ngAfterViewInit() {
@@ -118,17 +114,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private loadOrdersToday() {
         this.orderService.getOrdersToday().subscribe(
-            (orders: Order[]) => { this.ordersToday = orders; }, (error: any) => {console.log('Error #333'); });
+            (orders: Order) => { this.ordersToday = orders; }, (error: any) => {console.log('Error #333'); });
     }
 
     private loadOrders(offset: any) {
         this.orderService.getAllOrders(offset).subscribe(
-            (orders: Order[]) => { this.orders = orders; }, (error: any) => { console.log('Error #333'); });
+            (orders: Order) => { this.orders = orders; }, (error: any) => { console.log('Error #333'); });
     }
 
     private loadOrdersPlot() {
         this.orderService.getOrdersPlot().subscribe(
-            (orders: Order[]) => { this.ordersData = orders; }, (error: any) => { console.log('Error #333'); });
+            (orders: Order) => { this.ordersData = orders; }, (error: any) => { console.log('Error #333'); });
     }
 
     private loadAllUsers() {

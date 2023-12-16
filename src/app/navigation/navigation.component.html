@@ -15,7 +15,7 @@
         <a [routerLink]="['/profile']">
           <img src="/assets/admin-assets/img/default_user.png"
                class="side-user-img responsive" />
-          <span class="side-user-name" *ngIf="currentUser">{{ currentUser.user.firstName }}</span>
+          <span class="side-user-name" *ngIf="currentUser">{{ currentUser.user.full_name }}</span>
         </a>
       </li>
       <li class="no-padding">
@@ -44,19 +44,19 @@
             <div class="collapsible-body">
               <ul>
                 <li>
-                  <a [routerLink]="['/order/pending']">
+                  <a [routerLink]="['/order/all']">
                     <i class="material-icons">keyboard_arrow_right</i>
                     <span>Pending</span>
                   </a>
                 </li>
                 <li>
-                  <a [routerLink]="['/order/in-progress']">
+                  <a [routerLink]="['/order/all']">
                     <i class="material-icons">keyboard_arrow_right</i>
                     <span>In progress</span>
                   </a>
                 </li>
                 <li>
-                  <a [routerLink]="['/order/delivered']">
+                  <a [routerLink]="['/order/all']">
                     <i class="material-icons">keyboard_arrow_right</i>
                     <span>Delivered</span>
                   </a>

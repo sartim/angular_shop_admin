@@ -8,7 +8,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class UserService {
     constructor(private http: HttpClient) { }
     fetch() {
-        return this.http.get(apiUrl + '/account/generate/jwt/', this.jwt())
+        return this.http.get(apiUrl + '/api/v1/auth/generate-jwt', this.jwt())
             // @ts-ignore
         .map((response: Response) => {
             const loggedInUser = response.json();
@@ -23,27 +23,27 @@ export class UserService {
     }
     getAll() {
         // @ts-ignore
-        return this.http.get(apiUrl + '/account/user/', this.jwt()).map((response: Response) => response.json());
+        return this.http.get(apiUrl + '/api/v1/users', this.jwt()).map((response: Response) => response.json());
     }
 
     getById(id: number) {
         // @ts-ignore
-        return this.http.get(apiUrl + '/account/user/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(apiUrl + '/api/v1/users/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     create(user: User) {
         // @ts-ignore
-        return this.http.post(apiUrl + '/api/v1/auth/register/', user, this.jwt()).map((response: Response) => response.json());
+        return this.http.post(apiUrl + '/api/v1/users', user, this.jwt()).map((response: Response) => response.json());
     }
 
     update(user: User) {
         // @ts-ignore
-        return this.http.put(apiUrl + '/api/users/' + user.id, user, this.jwt()).map((response: Response) => response.json());
+        return this.http.put(apiUrl + '/api/v1/users' + user.id, user, this.jwt()).map((response: Response) => response.json());
     }
 
     delete(id: number) {
         // @ts-ignore
-        return this.http.delete(apiUrl + '/api/users/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.delete(apiUrl + '/api/v1/users' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     // private helper methods
@@ -53,8 +53,8 @@ export class UserService {
         // create authorization header with jwt token
         // @ts-ignore
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            const headers =  new HttpHeaders({ Authorization: 'JWT ' + currentUser.token });
+        if (currentUser && currentUser.access_token) {
+            const headers =  new HttpHeaders({ Authorization: 'Bearer ' + currentUser.token });
             const options = { headers };
             return options;
         }

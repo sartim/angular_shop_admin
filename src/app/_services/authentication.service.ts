@@ -32,24 +32,29 @@ export class AuthenticationService {
     }
 
     refresh() {
-            const body = localStorage.getItem('currentUser');
+            let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
             const headers =  new HttpHeaders({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + currentUser.refresh_token
             });
             const options = { headers };
 
-            const refresh = this.http.post<any>(apiUrl +  '/api/v1/auth/refresh-jwt', body, options)
+
+            const refresh = this.http.post<any>(apiUrl +  '/api/v1/auth/refresh-jwt', null, options)
                 .pipe(map((response: Response) => {
                     // login successful if there's a jwt token in the response
-                    const user = response.json();
                     // @ts-ignore
-                    if (user && user.token) {
+                    if (response && response.access_token) {
+                        const responseString = JSON.stringify(response);
+                        const responseObj = JSON.parse(responseString);
                         // store user details and jwt token in local storage to keep user logged in between page refreshes
                         // @ts-ignore
-                        localStorage.setItem('currentUser', JSON.stringify(user));
-                        console.log('updated token');
+                        // tslint:disable-next-line:variable-name
+                        const access_token = responseObj.access_token;
+                        currentUser = {...currentUser, access_token};
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
                     }
-                    return user;
+                    return response;
                 }));
 
             return refresh;

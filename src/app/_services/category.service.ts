@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import {HttpClient} from '@angular/common/http';
+// @ts-ignore
 import apiUrl from '../config/api.js';
 
 @Injectable()

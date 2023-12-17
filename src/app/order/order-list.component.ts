@@ -30,7 +30,7 @@ export class OrderListComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit() {
-      this.loadAllDelivered({offset: 0});
+      this.loadAllDelivered({offset: 1});
     }
 
     gotoDetail(id: number) {

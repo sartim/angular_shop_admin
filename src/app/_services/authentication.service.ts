@@ -73,4 +73,16 @@ export class AuthenticationService {
             return false;
         }
     }
+
+    // private helper methods
+    jwt() {
+        // create authorization header with jwt token
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        if (currentUser && currentUser.access_token) {
+            const headers =  new HttpHeaders({ Authorization: 'Bearer ' + currentUser.access_token });
+            const options = { headers };
+            return options;
+        }
+        return;
+    }
 }

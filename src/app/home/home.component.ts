@@ -117,8 +117,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             (orders: Order) => { this.ordersToday = orders; }, (error: any) => {console.log('Error #333'); });
     }
 
-    private loadOrders(offset: any) {
-        this.orderService.getAllOrders(offset).subscribe(
+    private loadOrders(page: any) {
+        this.orderService.getAllOrders(page).subscribe(
             (orders: Order) => { this.orders = orders; }, (error: any) => { console.log('Error #333'); });
     }
 

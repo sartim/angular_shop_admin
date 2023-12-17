@@ -32,7 +32,7 @@ export class AuthenticationService {
     }
 
     refresh() {
-            let currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
             const headers =  new HttpHeaders({
                 'Content-Type': 'application/json',
                 Authorization: 'Bearer ' + currentUser.refresh_token
@@ -45,14 +45,9 @@ export class AuthenticationService {
                     // login successful if there's a jwt token in the response
                     // @ts-ignore
                     if (response && response.access_token) {
-                        const responseString = JSON.stringify(response);
-                        const responseObj = JSON.parse(responseString);
                         // store user details and jwt token in local storage to keep user logged in between page refreshes
                         // @ts-ignore
-                        // tslint:disable-next-line:variable-name
-                        const access_token = responseObj.access_token;
-                        currentUser = {...currentUser, access_token};
-                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                        localStorage.setItem('currentUser', JSON.stringify(response));
                     }
                     return response;
                 }));
@@ -77,5 +72,17 @@ export class AuthenticationService {
         } else {
             return false;
         }
+    }
+
+    // private helper methods
+    jwt() {
+        // create authorization header with jwt token
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        if (currentUser && currentUser.access_token) {
+            const headers =  new HttpHeaders({ Authorization: 'Bearer ' + currentUser.access_token });
+            const options = { headers };
+            return options;
+        }
+        return;
     }
 }

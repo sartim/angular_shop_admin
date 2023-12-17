@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserService } from './user.service';
+import { AuthenticationService } from './authentication.service';
 import {HttpClient} from '@angular/common/http';
 import {Order, OrderDetail} from '../_models';
 // @ts-ignore
@@ -7,39 +7,39 @@ import apiUrl from '../config/api.js';
 
 @Injectable()
 export class OrderService {
-    constructor(private http: HttpClient, private userService: UserService, ) { }
+    constructor(private http: HttpClient, private authService: AuthenticationService, ) { }
 
     getOrdersToday() {
         // @ts-ignore
-        return this.http.get<Order>(apiUrl + '/api/v1/orders/today', this.userService.jwt());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders/today', this.authService.jwt());
     }
 
     getOrdersThisMonth() {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        return this.http.get<Order>(apiUrl + '/api/v1/orders', this.userService.jwt());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders', this.authService.jwt());
     }
 
     getOrdersLastMonth() {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        return this.http.get<Order>(apiUrl + '/api/v1/orders', this.userService.jwt());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders', this.authService.jwt());
     }
 
     getOrdersPlot() {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        return this.http.get<Order>(apiUrl + '/api/v1/orders', this.userService.jwt());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders', this.authService.jwt());
     }
 
-    getAllOrders(offset: number) {
+    getAllOrders(page: number) {
         // @ts-ignore
-        return this.http.get<Order>(apiUrl + '/api/v1/orders' + '?page=' + offset, this.userService.jwt());
+        return this.http.get<Order>(apiUrl + '/api/v1/orders' + '?page=' + page, this.authService.jwt());
     }
 
     getOrderById(id: string | null) {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        return this.http.get<OrderDetail>(apiUrl + apiUrl + '/api/v1/orders/' + id, this.userService.jwt());
+        return this.http.get<OrderDetail>(apiUrl + apiUrl + '/api/v1/orders/' + id, this.authService.jwt());
     }
 }

@@ -10,6 +10,7 @@ import { AlertService, AuthenticationService, UserService, OrderService, Categor
 import { HomeComponent } from './home';
 import { OrderListComponent, OrderDetailComponent } from './order';
 // import { CategoryListComponent, CategoryDetailComponent } from './category';
+import { ProductListComponent, ProductDetailComponent } from './product';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -33,6 +34,8 @@ import {HttpClientModule} from '@angular/common/http';
         OrderDetailComponent,
         // CategoryListComponent,
         // CategoryDetailComponent,
+        ProductListComponent,
+        ProductDetailComponent,
         LoginComponent,
         RegisterComponent,
         NavigationComponent,

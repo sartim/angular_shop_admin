@@ -5,8 +5,7 @@ on:
     branches: [develop]
 
 jobs:
-  build-n-deploy:
-    name: Build and deploy to staging
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -31,4 +30,16 @@ jobs:
         env:
           CI: false
       - run: ./scripts/create_api_dot_js.sh
-      # - run: firebase deploy
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      max-parallel: 1
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+    - name: Deploy to stage
+      run: |
+        echo "firebase deploy"
+

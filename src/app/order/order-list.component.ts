@@ -30,7 +30,7 @@ export class OrderListComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit() {
-      this.loadAllDelivered({offset: 1});
+      this.loadAll({page: 1});
     }
 
     gotoDetail(id: number) {
@@ -39,11 +39,11 @@ export class OrderListComponent implements OnInit {
 
     pageOffset() {
       const incOffset = this.f += 20;
-      this.loadAllDelivered({offset: incOffset});
+      this.loadAll({page: incOffset});
     }
 
-    private loadAllDelivered({offset}: { offset: any }) {
-      const loadAll = this.orderService.getAllOrders(offset);
-      loadAll.subscribe((orders: Order) => { this.orders = orders; });
+    private loadAll({page}: { page: any }) {
+        const loadAll = this.orderService.getAllOrders(page);
+        loadAll.subscribe((orders: Order) => { this.orders = orders; });
     }
 }

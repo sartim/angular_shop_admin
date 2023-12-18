@@ -56,7 +56,5 @@ export class LoginComponent implements OnInit {
         document.getElementById('left-sidebar-nav').style.display = 'none';
         // @ts-ignore
         document.getElementById('fab_id').style.display = 'none';
-        // @ts-ignore
-        document.getElementById('main').removeAttribute('id');
     }
 }

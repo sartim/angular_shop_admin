@@ -106,6 +106,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         document.getElementById('header').style.display = 'block';
         // @ts-ignore
         document.getElementById('left-sidebar-nav').style.display = 'block';
+        // @ts-ignore
+        // document.getElementById('card-stats').style.paddingLeft = '240px';
     }
 
     deleteUser(id: number) {

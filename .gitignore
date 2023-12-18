@@ -36,5 +36,10 @@ testem.log
 .DS_Store
 Thumbs.db
 
-# env
+# Others
 .env
+.angular
+.firebase
+src/assets/admin-assets/
+package-lock.json
+yarn.lock

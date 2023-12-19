@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { OrderService } from '../_services/index';
-import { OrderDetail } from '../_models/index';
+import {ProductService} from '../_services/index';
+import {OrderDetail, ProductDetail} from '../_models/index';
 import { AlertService, AuthenticationService } from '../_services/index';
 import { switchMap } from 'rxjs/operators';
 
@@ -12,31 +12,23 @@ import { switchMap } from 'rxjs/operators';
     templateUrl: 'product-detail.component.html'
 })
 export class ProductDetailComponent implements OnInit {
-    order: OrderDetail;
+    product: ProductDetail;
 
     constructor(
-        private orderService: OrderService,
+        private productService: ProductService,
         private route: ActivatedRoute,
         private location: Location) {
-        this.order = new OrderDetail();
+        this.product = new ProductDetail();
     }
 
     ngOnInit() {
-        this.route.paramMap
-            .pipe(switchMap((params: ParamMap) => this.orderService.getOrderById(params.get('id'))))
-            .subscribe((order: OrderDetail) => {
-                this.order = order;
-            });
-        // subscribe to router event
-      // this.route.params.subscribe((params: Params) => {
-      //     let id = params['id'];
-      //     console.log(id);
-      //     this.getDel(id);
-      //   });
+        const routeParams = this.route.snapshot.paramMap;
+        const idFromRoute = String(routeParams.get('id'));
+        this.productService.getProductById(idFromRoute).subscribe((product: ProductDetail) => this.product = product);
     }
 
     private getDel(id: any) {
-      this.orderService.getOrderById(id).subscribe((order: OrderDetail) => this.order = order);
+      this.productService.getProductById(id).subscribe((product: ProductDetail) => this.product = product);
     }
 
     goBack(): void {

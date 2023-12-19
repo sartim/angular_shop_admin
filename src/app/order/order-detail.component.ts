@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { OrderService } from '../_services/index';
-import { OrderDetail } from '../_models/index';
+import {Order, OrderDetail} from '../_models/index';
 import { AlertService, AuthenticationService } from '../_services/index';
 import { switchMap } from 'rxjs/operators';
 
@@ -22,17 +22,9 @@ export class OrderDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.paramMap
-            .pipe(switchMap((params: ParamMap) => this.orderService.getOrderById(params.get('id'))))
-            .subscribe((order: OrderDetail) => {
-                this.order = order;
-            });
-        // subscribe to router event
-      // this.route.params.subscribe((params: Params) => {
-      //     let id = params['id'];
-      //     console.log(id);
-      //     this.getDel(id);
-      //   });
+        const routeParams = this.route.snapshot.paramMap;
+        const idFromRoute = Number(routeParams.get('id'));
+        this.orderService.getOrderById(idFromRoute).subscribe((order: OrderDetail) => this.order = order);
     }
 
     private getDel(id: any) {

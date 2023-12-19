@@ -1,11 +1,11 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-
+import {ActivatedRoute, Router} from '@angular/router';
+import {AfterViewInit, Component, OnInit, Renderer2} from '@angular/core';
 import {Order, User} from '../_models';
-import { ProductService } from '../_services';
+import {AuthenticationService, ProductService} from '../_services';
 import { Product } from '../_models';
 import {HttpClient} from '@angular/common/http';
 import {CurrencyPipe, UpperCasePipe} from '@angular/common';
+import {ScriptHelper} from '../_helpers/scripts.helpers';
 
 
 @Component({
@@ -17,23 +17,39 @@ import {CurrencyPipe, UpperCasePipe} from '@angular/common';
         }
     `]
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements AfterViewInit, OnInit {
     products!: Product;
     users: User[] = [];
     selectedOrder!: Product;
     loggedUser!: User;
     dtOptions: DataTables.Settings = {};
+    returnUrl!: string;
     private f = 0;
 
     constructor(
+        private authenticationService: AuthenticationService,
+        private route: ActivatedRoute,
         private http: HttpClient,
         private pipeInstance: UpperCasePipe,
         private pipeCurrencyInstance: CurrencyPipe,
         private productService: ProductService,
+        private helpers: ScriptHelper,
+        private renderer: Renderer2,
         private router: Router) { }
 
     ngOnInit() {
-      this.loadAll({ page: 1 });
+        this.helpers.initScript();
+        this.loadAll({ page: 1 });
+        // tslint:disable-next-line:no-string-literal
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
+    }
+
+    ngAfterViewInit(): void {
+        this.renderer.listen('document', 'click', (event) => {
+          if (event.target.hasAttribute('id')) {
+            this.router.navigate(['/product-detail/' + event.target.id]);
+          }
+        });
     }
 
     gotoDetail(id: number) {
@@ -45,12 +61,19 @@ export class ProductListComponent implements OnInit {
         this.dtOptions = {
             ajax: (dataTablesParameters: any, callback) => {
                 loadAll.subscribe(
-                (products: Product) => {
-                    callback({
-                        recordsTotal: products.count,
-                        data: products.results             // <-- see here
-                    });
-                });
+                    (products: Product) => {
+                        callback({
+                            recordsTotal: products.count,
+                            data: products.results             // <-- see here
+                        });
+                    },
+                    (error: string) => {
+                        const err = JSON.parse(JSON.stringify(error));
+                        if (err.status === 401 ) {
+                            this.router.navigate([this.returnUrl]);
+                        }
+                    }
+                );
             },
             columns: [{
                 title: 'ID',
@@ -70,14 +93,19 @@ export class ProductListComponent implements OnInit {
             }, {
                 title: 'Price',
                 data: 'price'
-            }],
+            }, {
+                title: 'Action',
+                render (data: any, type: any, full: any) {
+                  return '<button id="'+full.id+'" class="btn darken-1 waves-effect waves-orange">View</button>';
+                }
+              }],
             // tslint:disable-next-line:ban-types
             rowCallback: (row: Node, data: any[] | Object, index: number) => {
                 const self = this;
                 $('td', row).off('click');
                 $('td', row).on('click', () => {
                   const product = JSON.parse(JSON.stringify(data));
-                  // this.gotoDetail(order.id)
+                  this.gotoDetail(product.id)
                 });
                 return row;
             }

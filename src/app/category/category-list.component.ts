@@ -1,10 +1,10 @@
 import 'rxjs/add/operator/switchMap';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-
 import { User } from '../_models/index';
 import { CategoryService } from '../_services/index';
 import { Category } from '../_models/index';
+import {ScriptHelper} from '../_helpers/scripts.helpers';
 
 
 @Component({
@@ -26,10 +26,12 @@ export class CategoryListComponent implements OnInit {
 
     constructor(
         private categoryService: CategoryService,
+        private helpers: ScriptHelper,
         private router: Router) { }
 
     ngOnInit() {
-      this.loadCategories(0);
+        this.helpers.initScript();
+        this.loadCategories(0);
     }
 
     gotoDetail(id: number) {

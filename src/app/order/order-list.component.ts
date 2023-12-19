@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../_models';
 import { OrderService } from '../_services';
 import { Order } from '../_models';
-import { ADTSettings } from 'angular-datatables/src/models/settings';
 import { UpperCasePipe, CurrencyPipe } from '@angular/common'
 import {HttpClient} from '@angular/common/http';
+import {ScriptHelper} from '../_helpers/scripts.helpers';
 
 @Component({
     moduleId: module.id,
@@ -29,10 +29,12 @@ export class OrderListComponent implements OnInit {
         private pipeInstance: UpperCasePipe,
         private pipeCurrencyInstance: CurrencyPipe,
         private orderService: OrderService,
+        private helpers: ScriptHelper,
         private router: Router) { }
 
     ngOnInit() {
-      this.loadAll({page: 1});
+        this.helpers.initScript();
+        this.loadAll({page: 1});
     }
 
     gotoDetail(id: number) {

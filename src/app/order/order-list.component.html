@@ -6,9 +6,6 @@
                     <span>
                         <h4 class="header">All Orders</h4>
                     </span>
-                    <span style="float: right; margin-top: -80px; color: #f9a825">
-                      <div class="card-panel white lighten-2" *ngIf="orders">Total {{ orders.count }}</div>
-                    </span>
                 </div>
             </div>
         </div>
@@ -17,27 +14,7 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content" style="overflow:auto;">
-                    <table class="responsive-table bordered striped">
-                        <thead>
-                            <tr>
-                                <th data-field="id">#OrderID</th>
-                                <th data-field="full_name">Full Name</th>
-                                <th data-field="order_total">Amount</th>
-                                <th data-field="created_date">Created Date</th>
-                                <th data-field="delivered_date">Updated Date</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngIf="orders">
-                            <tr *ngFor="let order of orders.results">
-                                <td (click)="gotoDetail(order.id)" class="order_id">{{ order.id }}</td>
-                                <td>{{ order.user.first_name}} {{ order.user.last_name}}</td>
-                                <td>{{order.order_total}}</td>
-                                <td>{{ order.created_at }}</td>
-                                <td>{{ order.updated_at }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button class="btn btn-flat" (click)="pageOffset()">Next</button>
+                    <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
                 </div>
             </div>
         </div>

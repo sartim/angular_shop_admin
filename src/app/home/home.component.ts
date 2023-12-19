@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { User } from '../_models';
 import { Order } from '../_models';
 import { UserService } from '../_services';
@@ -9,6 +9,7 @@ import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import { HttpClient } from '@angular/common/http';
+import {ScriptHelper} from '../_helpers/scripts.helpers';
 
 am4core.useTheme(am4themes_animated);
 
@@ -25,11 +26,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     ordersToday!: Order;
     ordersData!: Order;
     dataProvider: any = [];
-
     loggedUser!: User;
-
+    returnUrl!: string;
     private chart!: am4charts.XYChart;
-
     private timer: any;
 
     constructor(
@@ -37,8 +36,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
         private orderService: OrderService,
+        private route: ActivatedRoute,
         private router: Router,
         private zone: NgZone,
+        private helpers: ScriptHelper,
         private http: HttpClient) {
         // @ts-ignore
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -48,7 +49,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.initScript();
+        this.helpers.initScript();
+        // tslint:disable-next-line:no-string-literal
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
         // this.loadAllUsers();
         this.authenticationService.getNewTokenHandler(); // To get new token after 2 minutes
         // this.loadOrdersToday(); // To get orders today
@@ -96,16 +99,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.chart.dispose();
         }
       });
-    }
-
-    initScript() {
-        document.body.style.display = 'block';
-        document.documentElement.style.display = 'block';
-        document.body.style.backgroundColor = '#f9f9f9';
-        // @ts-ignore
-        document.getElementById('header').style.display = 'block';
-        // @ts-ignore
-        document.getElementById('left-sidebar-nav').style.display = 'block';
     }
 
     deleteUser(id: number) {

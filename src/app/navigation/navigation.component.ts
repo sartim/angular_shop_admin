@@ -12,16 +12,14 @@ import { OrderService } from '../_services/index';
 })
 export class NavigationComponent implements OnInit {
     orders!: Order;
-    currentUser: User;
+    currentUser!: User;
     users: User[] = [];
-
     loggedUser!: User;
 
 
-    constructor(private orderService: OrderService) {
+    constructor(private orderService: OrderService) {}
+    ngOnInit() {
         // @ts-ignore
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    }
-    ngOnInit() {
     }
 }

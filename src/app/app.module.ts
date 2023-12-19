@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 // import { AlertComponent } from './_directives';
 import { AuthGuard } from './_guards';
-import { AlertService, AuthenticationService, UserService, OrderService, CategoryService } from './_services';
+import {AlertService, AuthenticationService, UserService, OrderService, CategoryService, ProductService} from './_services';
 import { HomeComponent } from './home';
 import { OrderListComponent, OrderDetailComponent } from './order';
 // import { CategoryListComponent, CategoryDetailComponent } from './category';
@@ -16,7 +16,10 @@ import { RegisterComponent } from './register';
 import { NavigationComponent } from './navigation/navigation.component';
 import { HeaderComponent } from './header/header.component';
 import {HttpClientModule} from '@angular/common/http';
-
+import { DataTablesModule } from 'angular-datatables';
+import {CurrencyPipe, UpperCasePipe} from '@angular/common';
+import {AlertComponent} from './_directives';
+import {ScriptHelper} from './_helpers/scripts.helpers';
 
 @NgModule({
     imports: [
@@ -24,12 +27,13 @@ import {HttpClientModule} from '@angular/common/http';
         FormsModule,
         HttpClientModule,
         routing,
-        AmChartsModule
+        AmChartsModule,
+        DataTablesModule
     ],
     declarations: [
         AppComponent,
         HomeComponent,
-        // AlertComponent,
+        AlertComponent,
         OrderListComponent,
         OrderDetailComponent,
         // CategoryListComponent,
@@ -47,8 +51,12 @@ import {HttpClientModule} from '@angular/common/http';
         AuthenticationService,
         UserService,
         OrderService,
+        ProductService,
         AmChartsService,
         CategoryService,
+        ScriptHelper,
+        UpperCasePipe,
+        CurrencyPipe
     ],
     bootstrap: [AppComponent]
 })

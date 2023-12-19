@@ -14,6 +14,6 @@ export class ProductService {
     }
 
     getProductById(id: string | null) {
-        return this.http.get<ProductDetail>(apiUrl + apiUrl + '/api/v1/products' + id, this.authService.jwt());
+        return this.http.get<ProductDetail>(apiUrl + '/api/v1/products/' + id, this.authService.jwt());
     }
 }

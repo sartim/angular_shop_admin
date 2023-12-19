@@ -37,9 +37,9 @@ export class OrderService {
         return this.http.get<Order>(apiUrl + '/api/v1/orders' + '?page=' + page, this.authService.jwt());
     }
 
-    getOrderById(id: string | null) {
+    getOrderById(id: number | null) {
         // @ts-ignore
         // tslint:disable-next-line:max-line-length
-        return this.http.get<OrderDetail>(apiUrl + apiUrl + '/api/v1/orders/' + id, this.authService.jwt());
+        return this.http.get<OrderDetail>(apiUrl + '/api/v1/orders/' + id, this.authService.jwt());
     }
 }

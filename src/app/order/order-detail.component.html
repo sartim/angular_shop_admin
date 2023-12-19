@@ -8,16 +8,16 @@
                   <h6>Customer Info</h6>
                   <label>
                       Customer Name:
-                      {{ order.user.firstName }}
-                      {{ order.user.lastName }}
+                      <span *ngIf="order.user">{{ order.user.first_name }}</span>
+                      <span *ngIf="order.user">{{ order.user.last_name }}</span>
                   </label>  <br>
                  <label>
                      Customer Email:
-                     {{ order.user.email }}
+                      <span *ngIf="order.user">{{ order.user.email }}</span>
                  </label>
              </div>
               <div class="input-field col s12 center">
-                  <p class="center login-form-text">{{order.id}}</p>
+                  <p class="center login-form-text"></p>
               </div>
           </div>
 

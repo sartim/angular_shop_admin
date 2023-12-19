@@ -3,8 +3,10 @@
     username!: string;
     password!: string;
     confirmPassword!: string;
-    firstName!: string;
-    lastName!: string;
+    // tslint:disable-next-line:variable-name
+    first_name!: string;
+    // tslint:disable-next-line:variable-name
+    last_name!: string;
     email!: string;
     phone!: string;
     token!: string;

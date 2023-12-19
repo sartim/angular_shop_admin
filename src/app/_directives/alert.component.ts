@@ -52,6 +52,7 @@ import {Subscription} from 'rxjs';
 export class AlertComponent implements OnDestroy {
     private subscription: Subscription;
     message: any;
+    msg: any;
     visibility: any;
 
     constructor(private alertService: AlertService) {
@@ -59,7 +60,12 @@ export class AlertComponent implements OnDestroy {
         this.subscription = alertService.getMessage().subscribe(
             (message: any) => {
                 this.message = JSON.parse(JSON.stringify(message));
-                this.visibility = 'show'
+                this.msg = this.message.text.error.message;
+                const status = this.message.text.status;
+                if (status === 0 || status === 500) {
+                    this.msg = 'Internal Server Error';
+                }
+                this.visibility = 'show';
                 setTimeout(() => { this.visibility = '' }, 3000);
             });
     }

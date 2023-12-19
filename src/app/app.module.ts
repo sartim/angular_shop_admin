@@ -18,6 +18,8 @@ import { HeaderComponent } from './header/header.component';
 import {HttpClientModule} from '@angular/common/http';
 import { DataTablesModule } from 'angular-datatables';
 import {CurrencyPipe, UpperCasePipe} from '@angular/common';
+import {AlertComponent} from './_directives';
+import {ScriptHelper} from './_helpers/scripts.helpers';
 
 @NgModule({
     imports: [
@@ -31,7 +33,7 @@ import {CurrencyPipe, UpperCasePipe} from '@angular/common';
     declarations: [
         AppComponent,
         HomeComponent,
-        // AlertComponent,
+        AlertComponent,
         OrderListComponent,
         OrderDetailComponent,
         // CategoryListComponent,
@@ -52,6 +54,7 @@ import {CurrencyPipe, UpperCasePipe} from '@angular/common';
         ProductService,
         AmChartsService,
         CategoryService,
+        ScriptHelper,
         UpperCasePipe,
         CurrencyPipe
     ],

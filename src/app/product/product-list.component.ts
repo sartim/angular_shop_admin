@@ -28,6 +28,10 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     navigation = false;
     previous = false;
     next = false;
+    startEntry = 0;
+    endEntry = 0;
+    totalEntries = 0;
+    entryPoint = 1;
     private f = 0;
 
     constructor(
@@ -43,7 +47,10 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
 
     ngOnInit() {
         this.helpers.initScript();
-        this.loadAll(1);
+        this.startEntry = this.entryPoint;
+        this.endEntry = 20;
+        this.entryPoint = this.entryPoint + 20;
+        this.loadAll(1, this.startEntry, this.endEntry);
         // tslint:disable-next-line:no-string-literal
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
     }
@@ -56,20 +63,34 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
       this.router.navigate(['/product-detail', id]);
     }
 
-    pageClick(url: string): void {
+    pageClick(url: string, isNext: boolean): void {
         this.navigation = false;
         const page = Number(this.helpers.getParameterByName('page', url));
-        console.log(page);
+
+        if (isNext) {
+            this.startEntry = this.entryPoint;
+            this.endEntry = this.entryPoint + 20;
+            this.entryPoint = this.entryPoint + 20;
+        } else {
+            this.startEntry = this.startEntry - 20;
+            this.endEntry = this.entryPoint - 20;
+            this.entryPoint = this.entryPoint - 20;
+            if (this.startEntry === 1) {
+                this.endEntry = this.endEntry - 1;
+            }
+        }
+
         if (page != null) {
             if(page !== 0) {
-                this.loadAll(page);
+                this.loadAll(page, this.startEntry, this.endEntry);
             }
         }
     }
 
-    private loadAll(page: number) {
+    private loadAll(page: number, startEntry: number, endEntry: number) {
         this.products = new Product();
         this.loading = true;
+        this.previous = false;
         const loadAll = this.productService.getProducts(page);
         loadAll.subscribe((products: Product) => {
                 this.products = products;
@@ -80,6 +101,9 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
                 } else if(nextPage !== 0) {
                     this.next = true;
                 }
+                this.startEntry = startEntry;
+                this.endEntry = endEntry;
+                this.totalEntries = this.products.count;
                 this.loading = false;
                 this.navigation = true;
             },

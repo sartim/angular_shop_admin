@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
-import {ProductService} from '../_services/index';
-import {OrderDetail, ProductDetail} from '../_models/index';
+import { ProductService } from '../_services/index';
+import { ProductDetail } from '../_models/index';
 import { AlertService, AuthenticationService } from '../_services/index';
 import { switchMap } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ import { switchMap } from 'rxjs/operators';
     templateUrl: 'product-detail.component.html'
 })
 export class ProductDetailComponent implements OnInit {
-    product: ProductDetail;
+    product: ProductDetail | undefined;
 
     constructor(
         private productService: ProductService,

@@ -1,5 +1,5 @@
 import {ActivatedRoute, Router} from '@angular/router';
-import {AfterViewInit, Component, OnInit, Renderer2} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {Order, User} from '../_models';
 import {AuthenticationService, ProductService} from '../_services';
 import { Product } from '../_models';
@@ -17,13 +17,17 @@ import {ScriptHelper} from '../_helpers/scripts.helpers';
         }
     `]
 })
-export class ProductListComponent implements AfterViewInit, OnInit {
+export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     products!: Product;
     users: User[] = [];
     selectedOrder!: Product;
     loggedUser!: User;
     dtOptions: DataTables.Settings = {};
     returnUrl!: string;
+    loading = false;
+    navigation = false;
+    previous = false;
+    next = false;
     private f = 0;
 
     constructor(
@@ -39,76 +43,52 @@ export class ProductListComponent implements AfterViewInit, OnInit {
 
     ngOnInit() {
         this.helpers.initScript();
-        this.loadAll({ page: 1 });
+        this.loadAll(1);
         // tslint:disable-next-line:no-string-literal
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
     }
 
     ngAfterViewInit(): void {
-        this.renderer.listen('document', 'click', (event) => {
-          if (event.target.hasAttribute('id')) {
-            this.router.navigate(['/product-detail/' + event.target.id]);
-          }
-        });
+        //
     }
 
     gotoDetail(id: number) {
       this.router.navigate(['/product-detail', id]);
     }
 
-    private loadAll({page}: { page: any }) {
-        const loadAll = this.productService.getProducts(page);
-        this.dtOptions = {
-            ajax: (dataTablesParameters: any, callback) => {
-                loadAll.subscribe(
-                    (products: Product) => {
-                        callback({
-                            recordsTotal: products.count,
-                            data: products.results             // <-- see here
-                        });
-                    },
-                    (error: string) => {
-                        const err = JSON.parse(JSON.stringify(error));
-                        if (err.status === 401 ) {
-                            this.router.navigate([this.returnUrl]);
-                        }
-                    }
-                );
-            },
-            columns: [{
-                title: 'ID',
-                data: 'id'
-            }, {
-                title: 'Name',
-                data: 'name'
-            }, {
-                title: 'Brand',
-                data: 'brand'
-            }, {
-                title: 'Items',
-                data: 'items'
-            }, {
-                title: 'Category',
-                data: 'category.name'
-            }, {
-                title: 'Price',
-                data: 'price'
-            }, {
-                title: 'Action',
-                render (data: any, type: any, full: any) {
-                  return '<button id="'+full.id+'" class="btn darken-1 waves-effect waves-orange">View</button>';
-                }
-              }],
-            // tslint:disable-next-line:ban-types
-            rowCallback: (row: Node, data: any[] | Object, index: number) => {
-                const self = this;
-                $('td', row).off('click');
-                $('td', row).on('click', () => {
-                  const product = JSON.parse(JSON.stringify(data));
-                  this.gotoDetail(product.id)
-                });
-                return row;
+    pageClick(url: string): void {
+        this.navigation = false;
+        const page = Number(this.helpers.getParameterByName('page', url));
+        console.log(page);
+        if (page != null) {
+            if(page !== 0) {
+                this.loadAll(page);
             }
-        };
+        }
+    }
+
+    private loadAll(page: number) {
+        this.products = new Product();
+        this.loading = true;
+        const loadAll = this.productService.getProducts(page);
+        loadAll.subscribe((products: Product) => {
+                this.products = products;
+                const previousPage = Number(this.helpers.getParameterByName('page', this.products.previous));
+                const nextPage = Number(this.helpers.getParameterByName('page', this.products.next));
+                if(previousPage !== 0) {
+                    this.previous = true;
+                } else if(nextPage !== 0) {
+                    this.next = true;
+                }
+                this.loading = false;
+                this.navigation = true;
+            },
+            (error: string) => {
+                this.loading = false;
+            });
+    }
+
+    ngOnDestroy(): void {
+        //
     }
 }

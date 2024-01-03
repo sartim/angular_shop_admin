@@ -1,6 +1,8 @@
 import {NgIterable} from '@angular/core';
 
 export class Product {
+    next!: string;
+    previous!: string;
     count!: number;
     results!: NgIterable<any>;
 }

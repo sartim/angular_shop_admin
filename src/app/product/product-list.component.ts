@@ -14,7 +14,7 @@ import {ScriptHelper} from '../_helpers/scripts.helpers';
     styles: [`
         .table-card {
           overflow:auto;
-          padding: 0px;
+          padding: 0;
         }
     `]
 })

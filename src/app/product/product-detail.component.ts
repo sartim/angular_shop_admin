@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { Location } from '@angular/common';
 
 import { ProductService } from '../_services/index';
 import { ProductDetail } from '../_models/index';
-import { AlertService, AuthenticationService } from '../_services/index';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'product-detail.component.html'
+    templateUrl: 'product-detail.component.html',
+    styles: [`
+        .form-label {
+            margin-left: 10px;
+        }
+    `]
 })
 export class ProductDetailComponent implements OnInit {
     product: ProductDetail | undefined;

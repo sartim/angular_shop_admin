@@ -1,3 +1,121 @@
+<div id="side-nav" class="sidenav">
+     <ul id="mob-nav">
+      <li class="no-padding">
+        <ul class="collapsible" data-collapsible="accordion">
+          <li class="bold">
+            <a class="collapsible-header waves-effect waves-cyan">
+              <i class="material-icons">dashboard</i>
+              <span class="nav-text mob-nav-text">Dashboard</span>
+            </a>
+            <div class="collapsible-body">
+              <ul>
+                <li class="active">
+                  <a [routerLink]="['/']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                      <span class="mob-nav-text">Orders</span>
+                    </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="bold">
+            <a class="collapsible-header  waves-effect waves-cyan">
+              <i class="material-icons">view_comfy</i>
+              <span class="nav-text mob-nav-text">Orders</span>
+            </a>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a [routerLink]="['/order/all']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span class="mob-nav-text">Pending</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/order/all']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span class="mob-nav-text">In progress</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/order/all']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span class="mob-nav-text">Delivered</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/order/all']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span class="mob-nav-text">All</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="bold">
+            <a class="collapsible-header  waves-effect waves-cyan">
+              <i class="material-icons">view_comfy</i>
+              <span class="nav-text mob-nav-text">Products</span>
+            </a>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a [routerLink]="['/product/list']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span class="mob-nav-text">List</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/product/report']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span class="mob-nav-text">Report</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="bold">
+            <a class="collapsible-header  waves-effect waves-cyan">
+              <i class="material-icons">account_box</i>
+              <span class="nav-text mob-nav-text">User</span>
+            </a>
+            <div class="collapsible-body">
+              <ul>
+                <li>
+                  <a [routerLink]="['/user/list']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span class="mob-nav-text">User List</span>
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="['/user/role']">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                    <span class="mob-nav-text">User Roles</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li class="li-hover">
+        <p class="ultra-small margin more-text">MORE</p>
+      </li>
+      <li>
+        <a [routerLink]="['/profile']">
+          <i class="material-icons">account_circle</i>
+          <span class="nav-text mob-nav-text">Profile</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/settings']">
+          <i class="material-icons">settings</i>
+          <span class="nav-text mob-nav-text">Settings</span>
+        </a>
+      </li>
+    </ul>
+</div>
+
 <aside id="left-sidebar-nav" class="nav-expanded nav-lock nav-collapsible">
     <div class="brand-sidebar">
       <h1 class="logo-wrapper">

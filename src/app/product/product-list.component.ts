@@ -12,8 +12,9 @@ import {ScriptHelper} from '../_helpers/scripts.helpers';
     moduleId: module.id,
     templateUrl: 'product-list.component.html',
     styles: [`
-        td {
-            white-space: nowrap;
+        .table-card {
+          overflow:auto;
+          padding: 0px;
         }
     `]
 })

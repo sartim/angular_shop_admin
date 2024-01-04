@@ -13,16 +13,17 @@
     <div class="row">
         <div class="col s12 m12 l12">
             <div class="card">
-                <div class="card-content" style="overflow:auto;">
-                    <table class="responsive-table bordered striped" *ngIf="products">
+                <div class="card-content table-card">
+                    <table class="responsive-table bordered striped highlight" *ngIf="products">
                         <thead>
                             <tr>
                                 <th data-field="id">#ID</th>
-                                <th data-field="full_name">Name</th>
-                                <th data-field="full_name">Brand</th>
+                                <th data-field="name">Name</th>
+                                <th data-field="brand">Brand</th>
                                 <th data-field="category">Category</th>
-                                <th data-field="created_date">Created Date</th>
-                                <th data-field="delivered_date">Updated Date</th>
+                                <th data-field="created_at">Created Date</th>
+                                <th data-field="updated_at">Updated Date</th>
+                                <th data-field="action">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,18 +34,23 @@
                                 <td>{{ product.category.name }}</td>
                                 <td>{{ product.created_at }}</td>
                                 <td>{{ product.updated_at }}</td>
-                                <td><button class="btn btn-flat btn-small" (click)="gotoDetail(product.id)">View</button></td>
+                                <td>
+                                    <div class="table-action">
+                                        <button class="btn btn-flat btn-small" (click)="gotoDetail(product.id)"><i class="large material-icons">create</i></button>
+                                        <button class="btn btn-flat btn-small" (click)="gotoDetail(product.id)"><i class="large material-icons">delete</i></button>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="center">
-                        <img style="padding-top: 50px; padding-bottom: 50px" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        <img class="table-loader" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
                     </div>
-                    <div style="display: block">
-                        <div *ngIf="navigation" style="text-align: left">
+                    <div class="table-footer">
+                        <div *ngIf="navigation" class="left-align">
                             Showing {{ startEntry }} to {{ endEntry }} of {{ totalEntries }} entries
                         </div>
-                        <div *ngIf="navigation" style="text-align: right; margin-top: -25px">
+                        <div *ngIf="navigation" class="right-align pagination">
                             <button *ngIf="previous" class="btn btn-flat" (click)="pageClick(products.previous, false)">Previous</button>
                             <button  *ngIf="next" class="btn btn-flat" (click)="pageClick(products.next, true)">Next</button>
                         </div>

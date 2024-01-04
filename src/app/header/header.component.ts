@@ -1,4 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import {element} from 'protractor';
+import {OrderService} from '../_services';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {OrderDetail} from '../_models';
 
 
 @Component({
@@ -50,10 +55,42 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
           border-radius: 50%;
           padding: 4px 5px;
       }
+      .mobile-nav {
+            margin-left: 10px;
+      }
+      @media only screen and (min-width: 1026px) {
+        .mobile-nav {
+            display: none;
+        }
+      }
+      .brand-logo {
+          margin-top: 30px
+      }
     `]
 })
 export class HeaderComponent implements  OnInit {
+    isOpen: boolean;
+
+    constructor() {
+        this.isOpen = false;
+    }
 
     ngOnInit() {
+        //
+    }
+
+    toggleNav() {
+        const instance = document.getElementById('side-nav');
+        if (!this.isOpen) {
+            if (instance) {
+                instance.style.width = '250px';
+                this.isOpen = true;
+            }
+        } else {
+            if (instance) {
+                instance.style.width = '0';
+                this.isOpen = false;
+            }
+        }
     }
 }

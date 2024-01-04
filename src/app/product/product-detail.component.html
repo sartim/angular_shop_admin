@@ -1,34 +1,54 @@
-<!-- ./End breadcrumb -->
 <div class="row">
-    <div class="col s12">
-      <div *ngIf="product">
-        <button class="btn grey waves-effect waves-light" (click)="goBack()">Back</button>
-         <div class="row">
-             <div class="col s6">
-                  <h6>Customer Info</h6>
-                  <label>
-                      Customer Name:
-                      <span>{{ product.name }}</span>
-                      <span>{{ product.brand }}</span>
-                  </label>  <br>
-                 <label>
-                     {{ product.price | currency  }}
-                 </label>
-             </div>
-              <div class="input-field col s12 center">
-                  <p class="center login-form-text">{{product.id}}</p>
+  <div class="col s12 m12 l12">
+    <div *ngIf="product">
+      <div class="row">
+        <div class="card">
+          <div class="card-content table-card">
+            <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <label for="id">ID</label>
+                <input placeholder="{{product.id}}" disabled value="{{product.id}}" id="id" type="text" class="validate">
               </div>
+              <div class="input-field col s6">
+                <label for="name">Name</label>
+                <input  placeholder="{{product.name}}" disabled value="{{product.name}}" id="name" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row">
+              <label for="price" class="form-label">Price</label>
+              <div class="input-field col s12">
+                <input placeholder="{{product.price}}" disabled value="{{product.price}}" id="price" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row" *ngIf="product.category">
+              <label for="category" class="form-label">Category</label>
+              <div class="input-field col s12">
+                <input placeholder="{{product.category.name}}" disabled value="{{product.category.name}}" id="category" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row">
+              <label for="items" class="form-label">Items</label>
+              <div class="input-field col s12">
+                <input placeholder="{{product.items}}" disabled value="{{product.items}}" id="items" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row">
+              <label for="created_at" class="form-label">Created Date</label>
+              <div class="input-field col s12">
+                <input placeholder="{{product.created_at}}" disabled value="{{product.created_at}}" id="created_at" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row">
+              <label for="updated_at" class="form-label">Updated Date</label>
+              <div class="input-field col s12">
+                <input placeholder="{{product.updated_at}}" disabled value="{{product.updated_at}}" id="updated_at" type="text" class="validate">
+              </div>
+            </div>
+          </form>
           </div>
-
-
-
-
-        <!--<div>-->
-            <!--<label>name: </label>-->
-            <!--<input [(ngModel)]="orders.id" placeholder="id" />-->
-        <!--</div>-->
-
+        </div>
       </div>
     </div>
+  </div>
 </div>
-

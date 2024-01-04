@@ -188,3 +188,30 @@ li.side-user-info:hover {
     width: 290px !important;
     left: 900px !important;
 }
+td, thead {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+thead {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #0098e1;
+  color: white;
+}
+/*tr:nth-child(even){background-color: #f2f2f2;}*/
+/*tr:hover {background-color: #ddd;}*/
+.table-footer {
+  margin-top: 10px;
+  padding: 10px
+}
+.pagination {
+  margin-top: -25px;
+}
+.table-loader {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.table-action {
+  display: flex;
+}

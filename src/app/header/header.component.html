@@ -2,6 +2,12 @@
  <div class="navbar-fixed">
    <nav class="navbar-color">
      <div class="nav-wrapper">
+       <div style="display: flex">
+         <a href="javascript:void(0);" class="mobile-nav" (click)="toggleNav()">
+            <i class="material-icons">menu</i>
+         </a>
+         <a class="brand-logo" [routerLink]="['/']">ADMIN</a>
+       </div>
        <div class="header-search-wrapper hide-on-med-and-down sideNav-lock">
          <i class="material-icons">search</i>
          <form onsubmit="">
@@ -84,7 +90,7 @@
          </li>
          <li>
             <a href="javascript:void(0);" data-target="slide-out" onclick="" class="sidenav-trigger chat-collapse">
-              <i class="material-icons">format_indent_increase</i>
+              <i class="material-icons">more_vert</i>
             </a>
          </li>
        </ul>

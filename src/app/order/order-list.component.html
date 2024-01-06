@@ -1,4 +1,4 @@
-<div id="responsive-table">
+<div>
     <div class="row">
         <div class="col s12 m12 l12">
             <div class="card">
@@ -13,8 +13,48 @@
     <div class="row">
         <div class="col s12 m12 l12">
             <div class="card">
-                <div class="card-content" style="overflow:auto;">
-                    <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+                <div class="card-content table-card">
+                    <table class="responsive-table bordered striped highlight" *ngIf="orders">
+                        <thead>
+                            <tr>
+                                <th data-field="id">#ID</th>
+                                <th data-field="name">Total</th>
+                                <th data-field="brand">First Name</th>
+                                <th data-field="category">Last Name</th>
+                                <th data-field="created_at">Created Date</th>
+                                <th data-field="updated_at">Updated Date</th>
+                                <th data-field="action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orders.results">
+                                <td (click)="gotoDetail(order.id)" class="order_id">{{ order.id }}</td>
+                                <td>{{ order.order_total }}</td>
+                                <td>{{ order.first_name }}</td>
+                                <td>{{ order.last_name }}</td>
+                                <td>{{ order.created_at }}</td>
+                                <td>{{ order.updated_at }}</td>
+                                <td>
+                                    <div class="table-action">
+                                        <button class="btn btn-flat btn-small" (click)="gotoDetail(order.id)"><i class="large material-icons">edit</i></button>
+                                        <button class="btn btn-flat btn-small" (click)="gotoDetail(order.id)"><i class="large material-icons">delete</i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="center">
+                        <img class="table-loader" *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                    </div>
+                    <div class="table-footer">
+                        <div *ngIf="navigation" class="left-align">
+                            Showing {{ startEntry }} to {{ endEntry }} of {{ totalEntries }} entries
+                        </div>
+                        <div *ngIf="navigation" class="right-align pagination">
+                            <button *ngIf="previous" class="btn btn-flat" (click)="pageClick(orders.previous, false)">Previous</button>
+                            <button  *ngIf="next" class="btn btn-flat" (click)="pageClick(orders.next, true)">Next</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

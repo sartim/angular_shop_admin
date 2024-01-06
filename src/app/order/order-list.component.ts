@@ -1,8 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../_models';
-import { OrderService } from '../_services';
-import { Order } from '../_models';
+import {Order, User} from '../_models';
+import {AlertService, AuthenticationService, OrderService} from '../_services';
 import { UpperCasePipe, CurrencyPipe } from '@angular/common'
 import {HttpClient} from '@angular/common/http';
 import {ScriptHelper} from '../_helpers/scripts.helpers';
@@ -21,10 +20,20 @@ export class OrderListComponent implements OnInit {
     users: User[] = [];
     selectedOrder!: Order;
     loggedUser!: User;
+    loading = false;
+    navigation = false;
+    previous = false;
+    next = false;
+    startEntry = 0;
+    endEntry = 0;
+    totalEntries = 0;
+    entryPoint = 1;
     dtOptions: DataTables.Settings = {};
     private f = 0;
 
     constructor(
+        private alertService: AlertService,
+        private authService: AuthenticationService,
         private http: HttpClient,
         private pipeInstance: UpperCasePipe,
         private pipeCurrencyInstance: CurrencyPipe,
@@ -34,49 +43,66 @@ export class OrderListComponent implements OnInit {
 
     ngOnInit() {
         this.helpers.initScript();
-        this.loadAll({page: 1});
+        this.startEntry = this.entryPoint;
+        this.endEntry = 20;
+        this.entryPoint = this.entryPoint + 20;
+        this.loadAll(1, this.startEntry, this.endEntry);
     }
 
     gotoDetail(id: number) {
       this.router.navigate(['/order-detail', id]);
     }
 
-    private loadAll({page}: { page: any }) {
-        const loadAll = this.orderService.getAllOrders(page);
-        this.dtOptions = {
-            ajax: (dataTablesParameters: any, callback) => {
-                loadAll.subscribe(
-                (orders: Order) => {
-                    callback({
-                        recordsTotal: orders.count,
-                        data: orders.results             // <-- see here
-                    });
-                });
-            },
-            columns: [{
-                title: 'ID',
-                data: 'id'
-            }, {
-                title: 'Order Total',
-                data: 'order_total'
-            }, {
-                title: 'First Name',
-                data: 'user.first_name'
-            }, {
-                title: 'Last Name',
-                data: 'user.last_name'
-            }],
-            // tslint:disable-next-line:ban-types
-            rowCallback: (row: Node, data: any[] | Object, index: number) => {
-                const self = this;
-                $('td', row).off('click');
-                $('td', row).on('click', () => {
-                  const order = JSON.parse(JSON.stringify(data));
-                  this.gotoDetail(order.id)
-                });
-                return row;
+    pageClick(url: string, isNext: boolean): void {
+        this.navigation = false;
+        const page = Number(this.helpers.getParameterByName('page', url));
+
+        if (isNext) {
+            this.startEntry = this.entryPoint;
+            this.endEntry = this.entryPoint + 20;
+            this.entryPoint = this.entryPoint + 20;
+        } else {
+            this.startEntry = this.startEntry - 20;
+            this.endEntry = this.entryPoint - 20;
+            this.entryPoint = this.entryPoint - 20;
+            if (this.startEntry === 1) {
+                this.endEntry = this.endEntry - 1;
             }
-        };
-        loadAll.subscribe((orders: Order) => { this.orders = orders;});
+        }
+
+        if (page != null) {
+            if(page !== 0) {
+                this.loadAll(page, this.startEntry, this.endEntry);
+            }
+        }
+    }
+
+    private loadAll(page: number, startEntry: number, endEntry: number) {
+        this.orders = new Order();
+        this.loading = true;
+        this.previous = false;
+        const loadAll = this.orderService.getAllOrders(page);
+        loadAll.subscribe((orders: Order) => {
+                this.orders = orders;
+                const previousPage = Number(this.helpers.getParameterByName('page', this.orders.previous));
+                const nextPage = Number(this.helpers.getParameterByName('page', this.orders.next));
+                if(previousPage !== 0) {
+                    this.previous = true;
+                } else if(nextPage !== 0) {
+                    this.next = true;
+                }
+                this.startEntry = startEntry;
+                this.endEntry = endEntry;
+                this.totalEntries = this.orders.count;
+                this.loading = false;
+                this.navigation = true;
+            },
+            (error) => {
+                this.loading = false;
+                if (error.status === 401) {
+                    this.alertService.error(error);
+                    this.authService.logout();
+                }
+            });
     }
 }

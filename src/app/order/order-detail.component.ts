@@ -15,6 +15,8 @@ export class OrderDetailComponent implements OnInit {
     order: OrderDetail;
 
     constructor(
+        private alertService: AlertService,
+        private authenticationService: AuthenticationService,
         private orderService: OrderService,
         private route: ActivatedRoute,
         private location: Location) {
@@ -24,11 +26,25 @@ export class OrderDetailComponent implements OnInit {
     ngOnInit() {
         const routeParams = this.route.snapshot.paramMap;
         const idFromRoute = Number(routeParams.get('id'));
-        this.orderService.getOrderById(idFromRoute).subscribe((order: OrderDetail) => this.order = order);
+        this.orderService.getOrderById(idFromRoute).subscribe(
+            (order: OrderDetail) => {this.order = order},
+            (error) => {
+                if (error.status === 401) {
+                    this.alertService.error(error);
+                    this.authenticationService.logout();
+                }
+            });
     }
 
     private getDel(id: any) {
-      this.orderService.getOrderById(id).subscribe((order: OrderDetail) => this.order = order);
+      this.orderService.getOrderById(id).subscribe(
+          (order: OrderDetail) => {this.order = order},
+          (error) => {
+                if (error.status === 401) {
+                    this.alertService.error(error);
+                    this.authenticationService.logout();
+                }
+          });
     }
 
     goBack(): void {

@@ -1,7 +1,7 @@
 import {ActivatedRoute, Router} from '@angular/router';
 import {AfterViewInit, Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {Order, User} from '../_models';
-import {AuthenticationService, ProductService} from '../_services';
+import {AlertService, AuthenticationService, ProductService} from '../_services';
 import { Product } from '../_models';
 import {HttpClient} from '@angular/common/http';
 import {CurrencyPipe, UpperCasePipe} from '@angular/common';
@@ -36,6 +36,7 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     private f = 0;
 
     constructor(
+        private alertService: AlertService,
         private authenticationService: AuthenticationService,
         private route: ActivatedRoute,
         private http: HttpClient,
@@ -108,8 +109,12 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
                 this.loading = false;
                 this.navigation = true;
             },
-            (error: string) => {
+            (error) => {
                 this.loading = false;
+                if (error.status === 401) {
+                    this.alertService.error(error);
+                    this.authenticationService.logout();
+                }
             });
     }
 

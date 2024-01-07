@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { Location } from '@angular/common';
 
-import { ProductService } from '../_services/index';
+import {AlertService, AuthenticationService, ProductService} from '../_services/index';
 import { ProductDetail } from '../_models/index';
 
 @Component({
@@ -18,6 +18,8 @@ export class ProductDetailComponent implements OnInit {
     product: ProductDetail | undefined;
 
     constructor(
+        private alertService: AlertService,
+        private authenticationService: AuthenticationService,
         private productService: ProductService,
         private route: ActivatedRoute,
         private location: Location) {
@@ -27,11 +29,25 @@ export class ProductDetailComponent implements OnInit {
     ngOnInit() {
         const routeParams = this.route.snapshot.paramMap;
         const idFromRoute = String(routeParams.get('id'));
-        this.productService.getProductById(idFromRoute).subscribe((product: ProductDetail) => this.product = product);
+        this.productService.getProductById(idFromRoute).subscribe(
+            (product: ProductDetail) => {this.product = product},
+            (error) => {
+                if (error.status === 401) {
+                    this.alertService.error(error);
+                    this.authenticationService.logout();
+                }
+            });
     }
 
     private getDel(id: any) {
-      this.productService.getProductById(id).subscribe((product: ProductDetail) => this.product = product);
+      this.productService.getProductById(id).subscribe(
+          (product: ProductDetail) => {this.product = product},
+          (error) => {
+                if (error.status === 401) {
+                    this.alertService.error(error);
+                    this.authenticationService.logout();
+                }
+          });
     }
 
     goBack(): void {

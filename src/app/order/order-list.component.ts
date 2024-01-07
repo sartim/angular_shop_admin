@@ -33,7 +33,7 @@ export class OrderListComponent implements OnInit {
 
     constructor(
         private alertService: AlertService,
-        private authService: AuthenticationService,
+        private authenticationService: AuthenticationService,
         private http: HttpClient,
         private pipeInstance: UpperCasePipe,
         private pipeCurrencyInstance: CurrencyPipe,
@@ -101,7 +101,7 @@ export class OrderListComponent implements OnInit {
                 this.loading = false;
                 if (error.status === 401) {
                     this.alertService.error(error);
-                    this.authService.logout();
+                    this.authenticationService.logout();
                 }
             });
     }

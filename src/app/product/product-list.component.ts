@@ -45,7 +45,9 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
         private productService: ProductService,
         private helpers: ScriptHelper,
         private renderer: Renderer2,
-        private router: Router) { }
+        private router: Router) {
+            this.products = new Product();
+    }
 
     ngOnInit() {
         this.helpers.initScript();
@@ -90,7 +92,6 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     private loadAll(page: number, startEntry: number, endEntry: number) {
-        this.products = new Product();
         this.loading = true;
         this.previous = false;
         const loadAll = this.productService.getProducts(page);

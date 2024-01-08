@@ -9,7 +9,7 @@ import { AuthGuard } from './_guards';
 import {AlertService, AuthenticationService, UserService, OrderService, CategoryService, ProductService} from './_services';
 import { HomeComponent } from './home';
 import { OrderListComponent, OrderDetailComponent } from './order';
-// import { CategoryListComponent, CategoryDetailComponent } from './category';
+import { CategoryListComponent, CategoryDetailComponent } from './category';
 import { ProductListComponent, ProductDetailComponent } from './product';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
@@ -36,8 +36,8 @@ import {ScriptHelper} from './_helpers/scripts.helpers';
         AlertComponent,
         OrderListComponent,
         OrderDetailComponent,
-        // CategoryListComponent,
-        // CategoryDetailComponent,
+        CategoryListComponent,
+        CategoryDetailComponent,
         ProductListComponent,
         ProductDetailComponent,
         LoginComponent,

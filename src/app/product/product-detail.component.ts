@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { Location } from '@angular/common';
-
-import {AlertService, AuthenticationService, ProductService} from '../_services/index';
-import { ProductDetail } from '../_models/index';
+import { AlertService, AuthenticationService, ProductService } from '../_services';
+import { ProductDetail } from '../_models';
 
 @Component({
     moduleId: module.id,

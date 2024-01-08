@@ -21,7 +21,7 @@ am4core.useTheme(am4themes_animated);
 
 export class HomeComponent implements OnInit, OnDestroy {
     currentUser: User;
-    users: User[] = [];
+    users: User;
     orders!: Order;
     ordersToday!: Order;
     ordersData!: Order;
@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         private zone: NgZone,
         private helpers: ScriptHelper,
         private http: HttpClient) {
+        this.users = new User();
         // @ts-ignore
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (!this.currentUser) {
@@ -102,7 +103,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     deleteUser(id: number) {
-        this.userService.delete(id).subscribe(() => { this.loadAllUsers(); }, (error: any) => { console.log('Error #333'); });
+        this.userService.delete(id).subscribe(() => { this.loadAllUsers(1); }, (error: any) => { console.log('Error #333'); });
     }
 
     private loadOrdersToday() {
@@ -120,8 +121,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             (orders: Order) => { this.ordersData = orders; }, (error: any) => { console.log('Error #333'); });
     }
 
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(
-            (users: User[]) => { this.users = users; }, (error: any) => { console.log('Error #333'); });
+    private loadAllUsers(page: number) {
+        this.userService.getUsers(page).subscribe(
+            (users: User) => { this.users = users; }, (error: any) => { console.log('Error #333'); });
     }
 }

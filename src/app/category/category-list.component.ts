@@ -1,9 +1,7 @@
-import 'rxjs/add/operator/switchMap';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { User } from '../_models/index';
-import { CategoryService } from '../_services/index';
-import { Category } from '../_models/index';
+import { CategoryService } from '../_services';
+import { Category } from '../_models';
 import {ScriptHelper} from '../_helpers/scripts.helpers';
 
 
@@ -18,10 +16,6 @@ import {ScriptHelper} from '../_helpers/scripts.helpers';
 })
 export class CategoryListComponent implements OnInit {
     categories!: Category;
-    users: User[] = [];
-
-    loggedUser!: User;
-
     private f = 0;
 
     constructor(
@@ -31,7 +25,7 @@ export class CategoryListComponent implements OnInit {
 
     ngOnInit() {
         this.helpers.initScript();
-        this.loadCategories(0);
+        this.loadAll(1);
     }
 
     gotoDetail(id: number) {
@@ -40,11 +34,11 @@ export class CategoryListComponent implements OnInit {
 
     pageOffset() {
       const incOffset = this.f += 20;
-      this.loadCategories(incOffset);
+      this.loadAll(incOffset);
     }
 
-    private loadCategories(offset: any) {
-      const loadAll = this.categoryService.getCategory(offset);
+    private loadAll(page: number) {
+      const loadAll = this.categoryService.getCategories(page);
       loadAll.subscribe((categories: Category) => { this.categories = categories; });
     }
 }

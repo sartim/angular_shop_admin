@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import {HttpClient} from '@angular/common/http';
+import {Category, CategoryDetail} from '../_models';
 // @ts-ignore
 import apiUrl from '../config/api.js';
 
@@ -8,15 +9,11 @@ import apiUrl from '../config/api.js';
 export class  CategoryService {
     constructor(private http: HttpClient, private authService: AuthenticationService, ) { }
 
-    getCategory(offset: number) {
-        // @ts-ignore
-        // tslint:disable-next-line:max-line-length
-        return this.http.get(apiUrl +'/api/v1/categories' + '?page=' + offset, this.authService.jwt()).map((response: Response) => response.json());
+    getCategories(page: number) {
+        return this.http.get<Category>(apiUrl +'/api/v1/categories' + '?page=' + page, this.authService.jwt());
     }
 
     getCategoryById(id: string | null) {
-        // @ts-ignore
-        // tslint:disable-next-line:max-line-length
-        return this.http.get(apiUrl + '/api/v1/categories/' + id + '/', this.authService.jwt()).map((response: Response) => response.json());
+        return this.http.get<CategoryDetail>(apiUrl + '/api/v1/categories/' + id, this.authService.jwt());
     }
 }

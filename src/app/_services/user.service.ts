@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { User } from '../_models';
+import {Product, User} from '../_models';
 // @ts-ignore
 import apiUrl from '../config/api.js';
 import {HttpClient} from '@angular/common/http';
@@ -7,13 +7,12 @@ import {AuthenticationService} from './authentication.service';
 
 @Injectable()
 export class UserService {
-    constructor(private http: HttpClient, private authService: AuthenticationService, ) { }
+    constructor(private http: HttpClient, private authService: AuthenticationService, ) {}
     fetch() {
         return this.http.get(apiUrl + '/api/v1/auth/generate-jwt', this.authService.jwt())
             // @ts-ignore
         .map((response: Response) => {
             const loggedInUser = response.json();
-            console.log(loggedInUser);
             if (loggedInUser) {
                 // store user details in local storage to keep user logged in between page refreshes
                 // @ts-ignore
@@ -22,28 +21,28 @@ export class UserService {
             return loggedInUser;
         });
     }
-    getAll() {
+    getUsers(page: number) {
         // @ts-ignore
-        return this.http.get(apiUrl + '/api/v1/users', this.authService.jwt()).map((response: Response) => response.json());
+        return this.http.get<User>(apiUrl + '/api/v1/users' + '?page=' + page, this.authService.jwt());
     }
 
-    getById(id: number) {
+    getUserById(id: number | null) {
         // @ts-ignore
-        return this.http.get(apiUrl + '/api/v1/users/' + id, this.authService.jwt()).map((response: Response) => response.json());
+        return this.http.get<User>(apiUrl + '/api/v1/users/' + id, this.authService.jwt());
     }
 
     create(user: User) {
         // @ts-ignore
-        return this.http.post(apiUrl + '/api/v1/users', user, this.authService.jwt()).map((response: Response) => response.json());
+        return this.http.post<User>(apiUrl + '/api/v1/users', user, this.authService.jwt());
     }
 
     update(user: User) {
         // @ts-ignore
-        return this.http.put(apiUrl + '/api/v1/users' + user.id, user, this.authService.jwt()).map((response: Response) => response.json());
+        return this.http.put<User>(apiUrl + '/api/v1/users' + user.id, user, this.authService.jwt());
     }
 
-    delete(id: number) {
+    delete(id: number | null) {
         // @ts-ignore
-        return this.http.delete(apiUrl + '/api/v1/users' + id, this.authService.jwt()).map((response: Response) => response.json());
+        return this.http.delete<User>(apiUrl + '/api/v1/users' + id, this.authService.jwt());
     }
 }

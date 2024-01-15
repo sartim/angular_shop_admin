@@ -21,6 +21,8 @@ export class ScriptHelper {
         // @ts-ignore
         document.getElementById('header').style.display = 'block';
         // @ts-ignore
+        document.getElementById('breadcrumb').style.display = 'block';
+        // @ts-ignore
         document.getElementById('left-sidebar-nav').style.display = 'block';
     }
 

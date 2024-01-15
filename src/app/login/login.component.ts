@@ -53,6 +53,8 @@ export class LoginComponent implements OnInit {
         // @ts-ignore
         document.getElementById('header').style.display = 'none';
         // @ts-ignore
+        document.getElementById('breadcrumb').style.display = 'none';
+        // @ts-ignore
         document.getElementById('left-sidebar-nav').style.display = 'none';
         // @ts-ignore
         document.getElementById('fab_id').style.display = 'none';

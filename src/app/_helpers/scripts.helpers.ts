@@ -25,4 +25,24 @@ export class ScriptHelper {
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
+    handlePageClick(page: number, recordCount: number) {
+        let str = '';
+        const totalPages = Math.ceil(recordCount / 20);
+        const pagesToShow = 5;
+        const halfPagesToShow = Math.floor(pagesToShow / 2);
+        let startPage = Math.max(1, page - halfPagesToShow);
+        const endPage = Math.min(totalPages, startPage + pagesToShow - 1);
+        if (endPage - startPage + 1 < pagesToShow) {
+          startPage = Math.max(1, endPage - pagesToShow + 1);
+        }
+        for (let i = startPage; i <= endPage; i++) {
+          if (page === i) {
+            str += '<li class="active waves-effect"><a class="current_page">' + i + '</a></li>';
+          } else {
+            str += '<li class="waves-effect"><a class="current_page">' + i + '</a></li>';
+          }
+        }
+        return str;
+    }
+
 }

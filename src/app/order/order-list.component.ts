@@ -59,23 +59,10 @@ export class OrderListComponent implements OnInit {
     pageClick(url: string, isNext: boolean): void {
         this.navigation = false;
         const page = Number(this.helpers.getParameterByName('page', url));
-
-        if (isNext) {
-            this.startEntry = this.entryPoint;
-            this.endEntry = this.entryPoint + 20;
-            this.entryPoint = this.entryPoint + 20;
-        } else {
-            this.startEntry = this.startEntry - 20;
-            this.endEntry = this.entryPoint - 20;
-            this.entryPoint = this.entryPoint - 20;
-            if (this.startEntry === 1) {
-                this.endEntry = this.endEntry - 1;
-            }
-        }
-
+        const entry = this.helpers.handlePageEntry(isNext)
         if (page != null) {
             if(page !== 0) {
-                this.loadAll(page, this.startEntry, this.endEntry);
+                this.loadAll(page, entry.startEntry, entry.endEntry);
             }
         }
     }

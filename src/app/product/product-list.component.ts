@@ -7,7 +7,6 @@ import {HttpClient} from '@angular/common/http';
 import {CurrencyPipe, UpperCasePipe} from '@angular/common';
 import {ScriptHelper} from '../_helpers/scripts.helpers';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import {BreadcrumbComponent} from '../breadcrumb/breadcrumb.component';
 
 
 @Component({
@@ -40,7 +39,6 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     private f = 0;
 
     constructor(
-        private breadcrumb: BreadcrumbComponent,
         private sanitizer: DomSanitizer,
         private elementRef: ElementRef,
         private alertService: AlertService,

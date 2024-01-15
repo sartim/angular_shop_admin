@@ -5,17 +5,19 @@
         <div class="card">
           <div class="card-content table-card">
             <form class="col s12">
-            <div class="row">
-              <div class="input-field col s6">
-                <label for="id" style="margin-left: 0">ID</label>
+            <div class="row" *ngIf="product.id">
+              <label for="id" class="form-label">ID</label>
+              <div class="input-field col s12">
                 <input placeholder="{{product.id}}" disabled value="{{product.id}}" id="id" type="text" class="validate">
               </div>
-              <div class="input-field col s6">
-                <label for="name" style="margin-left: 0">Name</label>
-                <input  placeholder="{{product.name}}" disabled value="{{product.name}}" id="name" type="text" class="validate">
+            </div>
+            <div class="row" *ngIf="product.name">
+              <label for="name" class="form-label">Name</label>
+              <div class="input-field col s12">
+                <input placeholder="{{product.name}}" disabled value="{{product.name}}" id="name" type="text" class="validate">
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="product.price">
               <label for="price" class="form-label">Price</label>
               <div class="input-field col s12">
                 <input placeholder="{{product.price}}" disabled value="{{product.price}}" id="price" type="text" class="validate">

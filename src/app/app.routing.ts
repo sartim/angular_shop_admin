@@ -10,11 +10,11 @@ import { CategoryDetailComponent, CategoryListComponent } from './category';
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'product/list', component: ProductListComponent, canActivate: [AuthGuard] },
-    { path: 'product-detail/:id', component: ProductDetailComponent, canActivate: [AuthGuard] },
+    { path: 'product/detail/:id', component: ProductDetailComponent, canActivate: [AuthGuard] },
     { path: 'order/all', component: OrderListComponent, canActivate: [AuthGuard] },
-    { path: 'order-detail/:id', component: OrderDetailComponent, canActivate: [AuthGuard] },
+    { path: 'order/detail/:id', component: OrderDetailComponent, canActivate: [AuthGuard] },
     { path: 'category/list', component: CategoryListComponent, canActivate: [AuthGuard] },
-    { path: 'category-detail/:id', component: CategoryDetailComponent, canActivate: [AuthGuard] },
+    { path: 'category/detail/:id', component: CategoryDetailComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
 

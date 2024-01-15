@@ -115,22 +115,7 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
                 this.totalEntries = this.products.count;
                 this.loading = false;
                 this.navigation = true;
-                let str = '';
-                const totalPages = Math.ceil(this.totalEntries / 20);
-                const pagesToShow = 5;
-                const halfPagesToShow = Math.floor(pagesToShow / 2);
-                let startPage = Math.max(1, page - halfPagesToShow);
-                const endPage = Math.min(totalPages, startPage + pagesToShow - 1);
-                if (endPage - startPage + 1 < pagesToShow) {
-                  startPage = Math.max(1, endPage - pagesToShow + 1);
-                }
-                for (let i = startPage; i <= endPage; i++) {
-                  if (page === i) {
-                    str += '<li class="active waves-effect"><a class="current_page">' + i + '</a></li>';
-                  } else {
-                    str += '<li class="waves-effect"><a class="current_page">' + i + '</a></li>';
-                  }
-                }
+                const str = this.helpers.handlePageClick(page, this.totalEntries)
                 this.pages = this.sanitizer.bypassSecurityTrustHtml(str);
             },
             (error) => {

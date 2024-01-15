@@ -1,11 +1,12 @@
 import {ActivatedRoute, Router} from '@angular/router';
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {Order, User} from '../_models';
+import {User} from '../_models';
 import {AlertService, AuthenticationService, ProductService} from '../_services';
 import { Product } from '../_models';
 import {HttpClient} from '@angular/common/http';
 import {CurrencyPipe, UpperCasePipe} from '@angular/common';
 import {ScriptHelper} from '../_helpers/scripts.helpers';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 
 @Component({
@@ -33,10 +34,11 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     endEntry = 0;
     totalEntries = 0;
     entryPoint = 1;
-    pages!: string;
+    pages!: SafeHtml;
     private f = 0;
 
     constructor(
+        private sanitizer: DomSanitizer,
         private elementRef: ElementRef,
         private alertService: AlertService,
         private authenticationService: AuthenticationService,
@@ -96,6 +98,7 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     private loadAll(page: number, startEntry: number, endEntry: number) {
         this.loading = true;
         this.previous = false;
+        this.navigation = false;
         this.products = new Product();
         const loadAll = this.productService.getProducts(page);
         loadAll.subscribe((products: Product) => {
@@ -125,10 +128,10 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
                   if (page === i) {
                     str += '<li class="active waves-effect"><a class="current_page">' + i + '</a></li>';
                   } else {
-                    str += '<li class="waves-effect"><a>' + i + '</a></li>';
+                    str += '<li class="waves-effect"><a class="current_page">' + i + '</a></li>';
                   }
                 }
-                this.pages = str;
+                this.pages = this.sanitizer.bypassSecurityTrustHtml(str);
             },
             (error) => {
                 this.loading = false;
@@ -137,6 +140,14 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
                     this.authenticationService.logout();
                 }
             });
+    }
+
+    gotoPage(event: Event, startEntry: number, endEntry: number): void {
+        const clickedElement = event.target as HTMLElement;
+        if (clickedElement.classList.contains('current_page')) {
+          const pageNumber = +clickedElement.innerText;
+          this.loadAll(pageNumber, startEntry, endEntry)
+        }
     }
 
     ngOnDestroy(): void {

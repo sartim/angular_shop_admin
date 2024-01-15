@@ -35,6 +35,7 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     totalEntries = 0;
     entryPoint = 1;
     pages!: SafeHtml;
+    pageSelector!: string;
     private f = 0;
 
     constructor(
@@ -74,23 +75,10 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     pageClick(url: string, isNext: boolean): void {
         this.navigation = false;
         const page = Number(this.helpers.getParameterByName('page', url));
-
-        if (isNext) {
-            this.startEntry = this.entryPoint;
-            this.endEntry = this.entryPoint + 20;
-            this.entryPoint = this.entryPoint + 20;
-        } else {
-            this.startEntry = this.startEntry - 20;
-            this.endEntry = this.entryPoint - 20;
-            this.entryPoint = this.entryPoint - 20;
-            if (this.startEntry === 1) {
-                this.endEntry = this.endEntry - 1;
-            }
-        }
-
+        const entry = this.helpers.handlePageEntry(isNext)
         if (page != null) {
             if(page !== 0) {
-                this.loadAll(page, this.startEntry, this.endEntry);
+                this.loadAll(page, entry.startEntry, entry.endEntry);
             }
         }
     }
@@ -103,20 +91,16 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
         const loadAll = this.productService.getProducts(page);
         loadAll.subscribe((products: Product) => {
                 this.products = products;
-                const previousPage = Number(this.helpers.getParameterByName('page', this.products.previous));
-                const nextPage = Number(this.helpers.getParameterByName('page', this.products.next));
-                if(previousPage !== 0) {
-                    this.previous = true;
-                } else if(nextPage !== 0) {
-                    this.next = true;
-                }
-                this.startEntry = startEntry;
-                this.endEntry = endEntry;
-                this.totalEntries = this.products.count;
                 this.loading = false;
                 this.navigation = true;
-                const str = this.helpers.handlePageClick(page, this.totalEntries)
-                this.pages = this.sanitizer.bypassSecurityTrustHtml(str);
+                const recordCount = this.products.count;
+                const previousPageUrl = this.products.previous;
+                const nextPageUrl = this.products.next;
+                const pageData = this.helpers.handlePageClick(page, recordCount, previousPageUrl, nextPageUrl, startEntry, endEntry)
+                this.previous = pageData.previous;
+                this.next = pageData.next;
+                this.pageSelector = ''; // disabled
+                this.pages = this.sanitizer.bypassSecurityTrustHtml(pageData.innerHTML);
             },
             (error) => {
                 this.loading = false;

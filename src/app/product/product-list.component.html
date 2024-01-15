@@ -52,9 +52,9 @@
 <!--                        </div>-->
                         <div *ngIf="navigation" class="right-align pagination">
                             <ul class="pagination">
-                            <li class="disabled"><a *ngIf="previous" (click)="pageClick(products.previous, false)"><i class="material-icons">chevron_left</i></a></li>
+                            <li class="{{pageSelector}} waves-effect"><a *ngIf="previous" (click)="pageClick(products.previous, false)"><i class="material-icons">chevron_left</i></a></li>
                             <li (click)="gotoPage($event, startEntry, endEntry)" [innerHtml]="pages"></li>
-                            <li class="waves-effect"><a *ngIf="next" (click)="pageClick(products.next, true)"><i class="material-icons">chevron_right</i></a></li>
+                            <li class="{{pageSelector}} waves-effect"><a *ngIf="next" (click)="pageClick(products.next, true)"><i class="material-icons">chevron_right</i></a></li>
                           </ul>
                         </div>
                     </div>

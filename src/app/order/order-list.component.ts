@@ -53,7 +53,7 @@ export class OrderListComponent implements OnInit {
     }
 
     gotoDetail(id: number) {
-      this.router.navigate(['/order-detail', id]);
+      this.router.navigate(['/order/detail', id]);
     }
 
     pageClick(url: string, isNext: boolean): void {

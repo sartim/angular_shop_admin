@@ -1,8 +1,6 @@
 import {NgIterable} from '@angular/core';
-import {User} from './user';
-import {Status} from './status';
 
-export class Order {
+export class Status {
     next!: string;
     previous!: string;
     count!: number;
@@ -13,12 +11,11 @@ export class Order {
     updated_at!: string;
 }
 
-export class OrderDetail {
+export class StatusDetail {
     id!: number;
-    user!: User;
-    status!: Status;
-    // tslint:disable-next-line:variable-name
-    order_total!: number;
+    name!: string;
+    description!: string;
+    results!: NgIterable<any>;
     // tslint:disable-next-line:variable-name
     created_at!: string;
     // tslint:disable-next-line:variable-name

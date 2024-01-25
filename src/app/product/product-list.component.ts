@@ -27,7 +27,7 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     dtOptions: DataTables.Settings = {};
     returnUrl!: string;
     loading = false;
-    navigation = false;
+    isPaginationHidden = true;
     previous = false;
     next = false;
     startEntry = 0;
@@ -73,7 +73,7 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     pageClick(url: string, isNext: boolean): void {
-        this.navigation = false;
+        this.isPaginationHidden = true;
         const page = Number(this.helpers.getParameterByName('page', url));
         const entry = this.helpers.handlePageEntry(isNext)
         if (page != null) {
@@ -86,13 +86,13 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     private loadAll(page: number, startEntry: number, endEntry: number) {
         this.loading = true;
         this.previous = false;
-        this.navigation = false;
+        this.isPaginationHidden = true;
         this.products = new Product();
         const loadAll = this.productService.getProducts(page);
         loadAll.subscribe((products: Product) => {
                 this.products = products;
                 this.loading = false;
-                this.navigation = true;
+                this.isPaginationHidden = false;
                 const recordCount = this.products.count;
                 const previousPageUrl = this.products.previous;
                 const nextPageUrl = this.products.next;

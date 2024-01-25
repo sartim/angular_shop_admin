@@ -23,7 +23,7 @@ export class OrderListComponent implements OnInit {
     selectedOrder!: Order;
     loggedUser!: User;
     loading = false;
-    navigation = false;
+    isPaginationHidden = true;
     previous = false;
     next = false;
     startEntry = 0;
@@ -57,7 +57,7 @@ export class OrderListComponent implements OnInit {
     }
 
     pageClick(url: string, isNext: boolean): void {
-        this.navigation = false;
+        this.isPaginationHidden = true;
         const page = Number(this.helpers.getParameterByName('page', url));
         const entry = this.helpers.handlePageEntry(isNext)
         if (page != null) {
@@ -79,11 +79,12 @@ export class OrderListComponent implements OnInit {
         this.orders = new Order();
         this.loading = true;
         this.previous = false;
+        this.isPaginationHidden = true;
         const loadAll = this.orderService.getAllOrders(page);
         loadAll.subscribe((orders: Order) => {
                 this.orders = orders;
                 this.loading = false;
-                this.navigation = true;
+                this.isPaginationHidden = false;
                 const recordCount = this.orders.count;
                 const previousPageUrl = this.orders.previous;
                 const nextPageUrl = this.orders.next;

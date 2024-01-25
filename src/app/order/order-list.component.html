@@ -57,12 +57,14 @@
 <!--                        <div *ngIf="navigation" class="left-align">-->
 <!--                            Showing {{ startEntry }} to {{ endEntry }} of {{ totalEntries }} entries-->
 <!--                        </div>-->
-                        <div *ngIf="navigation" class="right-align pagination">
-                            <ul class="pagination">
-                            <li class="{{pageSelector}} waves-effect"><a *ngIf="previous" (click)="pageClick(orders.previous, false)"><i class="material-icons">chevron_left</i></a></li>
-                            <li (click)="gotoPage($event, startEntry, endEntry)" [innerHtml]="pages"></li>
-                            <li class="{{pageSelector}} waves-effect"><a *ngIf="next" (click)="pageClick(orders.next, true)"><i class="material-icons">chevron_right</i></a></li>
-                          </ul>
+                        <div [class.hide]="isPaginationHidden">
+                            <div class="right-align pagination">
+                                <ul class="pagination">
+                                <li class="{{pageSelector}} waves-effect"><a *ngIf="previous" (click)="pageClick(orders.previous, false)"><i class="material-icons">chevron_left</i></a></li>
+                                <li (click)="gotoPage($event, startEntry, endEntry)" [innerHtml]="pages"></li>
+                                <li class="{{pageSelector}} waves-effect"><a *ngIf="next" (click)="pageClick(orders.next, true)"><i class="material-icons">chevron_right</i></a></li>
+                              </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

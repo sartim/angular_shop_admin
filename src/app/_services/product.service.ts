@@ -1,19 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
-import {HttpClient} from '@angular/common/http';
-import {Product, ProductDetail} from '../_models';
-// @ts-ignore
-import apiUrl from '../config/api.js';
+import { BaseService } from './base.service';
+import { Product, ProductDetail } from '../_models';
 
 @Injectable()
-export class ProductService {
-    constructor(private http: HttpClient, private authService: AuthenticationService, ) { }
-
-    getProducts(page: number) {
-        return this.http.get<Product>(apiUrl + '/api/v1/products' + '?page=' + page, this.authService.jwt());
-    }
-
-    getProductById(id: string | null) {
-        return this.http.get<ProductDetail>(apiUrl + '/api/v1/products/' + id, this.authService.jwt());
-    }
+export class ProductService extends BaseService<Product, ProductDetail> {
+  constructor(http: HttpClient, authService: AuthenticationService) {
+    super(http, authService, 'api/v1/products');
+  }
 }

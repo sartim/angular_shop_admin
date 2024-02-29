@@ -28,7 +28,7 @@ export class ProductDetailComponent implements OnInit {
     ngOnInit() {
         const routeParams = this.route.snapshot.paramMap;
         const idFromRoute = String(routeParams.get('id'));
-        this.productService.getProductById(idFromRoute).subscribe(
+        this.productService.getById(idFromRoute).subscribe(
             (product: ProductDetail) => {this.product = product},
             (error) => {
                 if (error.status === 401) {
@@ -39,7 +39,7 @@ export class ProductDetailComponent implements OnInit {
     }
 
     private getDel(id: any) {
-      this.productService.getProductById(id).subscribe(
+      this.productService.getById(id).subscribe(
           (product: ProductDetail) => {this.product = product},
           (error) => {
                 if (error.status === 401) {

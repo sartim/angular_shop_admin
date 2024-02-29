@@ -88,7 +88,7 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
         this.previous = false;
         this.isPaginationHidden = true;
         this.products = new Product();
-        const loadAll = this.productService.getProducts(page);
+        const loadAll = this.productService.getAll(page);
         loadAll.subscribe((products: Product) => {
                 this.products = products;
                 this.loading = false;

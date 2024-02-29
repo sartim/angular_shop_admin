@@ -119,6 +119,10 @@ export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
         }
     }
 
+    _delete(id: string) {
+        alert('You are not authorized to perform action');
+    }
+
     ngOnDestroy(): void {
         //
     }

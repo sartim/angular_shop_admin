@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <div *ngIf="category">
+      <div class="row">
+        <div class="card">
+          <div class="card-content table-card">
+            <form class="col s12">
+            <div class="row" *ngIf="category.id">
+              <label for="id" class="form-label">ID</label>
+              <div class="input-field col s12">
+                <input placeholder="{{category.id}}" disabled value="{{category.id}}" id="id" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row" *ngIf="category.name">
+              <label for="name" class="form-label">Name</label>
+              <div class="input-field col s12">
+                <input placeholder="{{category.name}}" disabled value="{{category.name}}" id="name" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row">
+              <label for="created_at" class="form-label">Created Date</label>
+              <div class="input-field col s12">
+                <input placeholder="{{category.created_at}}" disabled value="{{category.created_at}}" id="created_at" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row">
+              <label for="updated_at" class="form-label">Updated Date</label>
+              <div class="input-field col s12">
+                <input placeholder="{{category.updated_at}}" disabled value="{{category.updated_at}}" id="updated_at" type="text" class="validate">
+              </div>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

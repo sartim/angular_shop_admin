@@ -23,7 +23,7 @@ export class CategoryDetailComponent implements OnInit {
     ngOnInit() {
         const routeParams = this.route.snapshot.paramMap;
         const idFromRoute = String(routeParams.get('id'));
-        this.categoryService.getCategoryById(idFromRoute).subscribe(
+        this.categoryService.getById(idFromRoute).subscribe(
             (category: CategoryDetail) => {this.category = category},
             (error) => {
                 if (error.status === 401) {
@@ -34,7 +34,7 @@ export class CategoryDetailComponent implements OnInit {
     }
 
     private getDel(id: any) {
-      this.categoryService.getCategoryById(id).subscribe(
+      this.categoryService.getById(id).subscribe(
           (category: CategoryDetail) => {this.category = category},
           (error) => {
                 if (error.status === 401) {

@@ -215,3 +215,6 @@ thead {
 .table-action {
   display: flex;
 }
+.btn:focus, .btn-large:focus, .btn-small:focus, .btn-floating:focus {
+    background-color: #0098e1;
+}

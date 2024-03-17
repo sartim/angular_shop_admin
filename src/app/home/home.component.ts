@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { User } from '../_models';
+import {User, UserDetail} from '../_models';
 import { Order } from '../_models';
 import { UserService } from '../_services';
 import { OrderService } from '../_services';
@@ -20,13 +20,13 @@ am4core.useTheme(am4themes_animated);
 })
 
 export class HomeComponent implements OnInit, OnDestroy {
-    currentUser: User;
+    currentUser: UserDetail;
     users: User;
     orders!: Order;
     ordersToday!: Order;
     ordersData!: Order;
     dataProvider: any = [];
-    loggedUser!: User;
+    loggedUser!: UserDetail;
     returnUrl!: string;
     private chart!: am4charts.XYChart;
     private timer: any;
@@ -102,27 +102,12 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     }
 
-    deleteUser(id: number) {
+    deleteUser(id: string) {
         this.userService.delete(id).subscribe(() => { this.loadAllUsers(1); }, (error: any) => { console.log('Error #333'); });
     }
 
-    private loadOrdersToday() {
-        this.orderService.getOrdersToday().subscribe(
-            (orders: Order) => { this.ordersToday = orders; }, (error: any) => {console.log('Error #333'); });
-    }
-
-    private loadOrders(page: any) {
-        this.orderService.getAllOrders(page).subscribe(
-            (orders: Order) => { this.orders = orders; }, (error: any) => { console.log('Error #333'); });
-    }
-
-    private loadOrdersPlot() {
-        this.orderService.getOrdersPlot().subscribe(
-            (orders: Order) => { this.ordersData = orders; }, (error: any) => { console.log('Error #333'); });
-    }
-
     private loadAllUsers(page: number) {
-        this.userService.getUsers(page).subscribe(
+        this.userService.getAll(page).subscribe(
             (users: User) => { this.users = users; }, (error: any) => { console.log('Error #333'); });
     }
 }

@@ -80,7 +80,7 @@ export class OrderListComponent implements OnInit {
         this.loading = true;
         this.previous = false;
         this.isPaginationHidden = true;
-        const loadAll = this.orderService.getAllOrders(page);
+        const loadAll = this.orderService.getAll(page);
         loadAll.subscribe((orders: Order) => {
                 this.orders = orders;
                 this.loading = false;

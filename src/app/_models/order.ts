@@ -1,5 +1,5 @@
 import {NgIterable} from '@angular/core';
-import {User} from './user';
+import {User, UserDetail} from './user';
 import {Status} from './status';
 
 export class Order {
@@ -15,7 +15,7 @@ export class Order {
 
 export class OrderDetail {
     id!: number;
-    user!: User;
+    user!: UserDetail;
     status!: Status;
     // tslint:disable-next-line:variable-name
     order_total!: number;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { OrderService } from '../_services/index';
@@ -12,7 +12,7 @@ import { switchMap } from 'rxjs/operators';
     templateUrl: 'order-detail.component.html'
 })
 export class OrderDetailComponent implements OnInit {
-    order: OrderDetail;
+    order: OrderDetail | undefined;
 
     constructor(
         private alertService: AlertService,
@@ -25,9 +25,9 @@ export class OrderDetailComponent implements OnInit {
 
     ngOnInit() {
         const routeParams = this.route.snapshot.paramMap;
-        const idFromRoute = Number(routeParams.get('id'));
-        this.orderService.getOrderById(idFromRoute).subscribe(
-            (order: OrderDetail) => {this.order = order},
+        const idFromRoute = String(routeParams.get('id'));
+        this.orderService.getById(idFromRoute).subscribe(
+            (product: OrderDetail) => {this.order = product},
             (error) => {
                 if (error.status === 401) {
                     this.alertService.error(error);
@@ -37,7 +37,7 @@ export class OrderDetailComponent implements OnInit {
     }
 
     private getDel(id: any) {
-      this.orderService.getOrderById(id).subscribe(
+      this.orderService.getById(id).subscribe(
           (order: OrderDetail) => {this.order = order},
           (error) => {
                 if (error.status === 401) {

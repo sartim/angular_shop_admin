@@ -1,4 +1,13 @@
-﻿export class User {
+﻿import {NgIterable} from '@angular/core';
+
+export class User {
+    next!: string;
+    previous!: string;
+    count!: number;
+    results!: NgIterable<any>;
+}
+
+export class UserDetail {
     id!: number;
     username!: string;
     password!: string;

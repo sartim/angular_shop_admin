@@ -18,7 +18,7 @@ export class UserDetail {
     last_name!: string;
     email!: string;
     phone!: string;
-    token!: string;a
+    token!: string;
     user!: {
         email: string,
         full_name: string,

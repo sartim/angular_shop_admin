@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../_models';
+import {User, UserDetail} from '../_models';
 import { Order } from '../_models';
 import { OrderService } from '../_services';
 
@@ -60,7 +60,7 @@ import { OrderService } from '../_services';
 })
 export class NavigationComponent implements OnInit {
     orders!: Order;
-    currentUser!: User;
+    currentUser!: UserDetail;
     users: User[] = [];
     loggedUser!: User;
 

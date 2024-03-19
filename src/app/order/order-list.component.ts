@@ -20,7 +20,6 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 export class OrderListComponent implements OnInit {
     orders!: Order;
     users: User[] = [];
-    selectedOrder!: Order;
     loggedUser!: User;
     loading = false;
     isPaginationHidden = true;

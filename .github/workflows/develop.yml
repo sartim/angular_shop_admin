@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install --force
+      - run: npm install -g firebase-tools
       - run: bower install
       - name: Run build
         run: npm run build --noninteractive

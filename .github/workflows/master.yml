@@ -31,7 +31,7 @@ jobs:
         env:
           CI: false
       - run: ./scripts/create_api_dot_js.sh
-      - run: firebase login:ci
+      - run: firebase login:ci --interactive
       - name: Deploy to prod
         run: |
          firebase deploy

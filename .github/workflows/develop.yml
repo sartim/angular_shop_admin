@@ -24,10 +24,22 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install --force
-      - run: npm install -g firebase-tools
       - run: bower install
       - name: Run build
         run: npm run build --noninteractive
         env:
           CI: false
       - run: ./scripts/create_api_dot_js.sh
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      max-parallel: 1
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 1
+    - name: Deploy to stage
+      run: |
+        echo "firebase deploy"
+

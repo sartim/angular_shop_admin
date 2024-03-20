@@ -22,7 +22,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class CategoryListComponent implements AfterViewInit, OnInit, OnDestroy {
     categories!: Category;
     users: User[] = [];
-    selectedOrder!: Category;
     loggedUser!: User;
     dtOptions: DataTables.Settings = {};
     returnUrl!: string;

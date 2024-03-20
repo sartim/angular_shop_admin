@@ -20,6 +20,7 @@ import {CurrencyPipe, UpperCasePipe} from '@angular/common';
 import {AlertComponent} from './_directives';
 import {ScriptHelper} from './_helpers/scripts.helpers';
 import {BreadcrumbComponent} from './breadcrumb/breadcrumb.component';
+import {UserDetailComponent, UserListComponent} from './user';
 
 @NgModule({
     imports: [
@@ -36,6 +37,8 @@ import {BreadcrumbComponent} from './breadcrumb/breadcrumb.component';
         AlertComponent,
         OrderListComponent,
         OrderDetailComponent,
+        UserListComponent,
+        UserDetailComponent,
         CategoryListComponent,
         CategoryDetailComponent,
         ProductListComponent,

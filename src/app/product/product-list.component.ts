@@ -22,7 +22,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class ProductListComponent implements AfterViewInit, OnInit, OnDestroy {
     products!: Product;
     users: User[] = [];
-    selectedOrder!: Product;
     loggedUser!: User;
     dtOptions: DataTables.Settings = {};
     returnUrl!: string;

@@ -1,15 +1,16 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import {Order, User} from '../_models';
-import {AlertService, AuthenticationService, OrderService} from '../_services';
-import { UpperCasePipe, CurrencyPipe } from '@angular/common'
+import {ActivatedRoute, Router} from '@angular/router';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {User} from '../_models';
+import {AlertService, AuthenticationService, UserService} from '../_services';
 import {HttpClient} from '@angular/common/http';
+import {CurrencyPipe, UpperCasePipe} from '@angular/common';
 import {ScriptHelper} from '../_helpers/scripts.helpers';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'order-list.component.html',
+    templateUrl: 'user-list.component.html',
     styles: [`
         .table-card {
           overflow:auto;
@@ -17,10 +18,10 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
         }
     `]
 })
-export class OrderListComponent implements OnInit {
-    orders!: Order;
-    users: User[] = [];
+export class UserListComponent implements AfterViewInit, OnInit, OnDestroy {
+    users: User;
     loggedUser!: User;
+    returnUrl!: string;
     loading = false;
     isPaginationHidden = true;
     previous = false;
@@ -29,19 +30,25 @@ export class OrderListComponent implements OnInit {
     endEntry = 0;
     totalEntries = 0;
     entryPoint = 1;
-    pageSelector!: string;
     pages!: SafeHtml;
+    pageSelector!: string;
+    private f = 0;
 
     constructor(
         private sanitizer: DomSanitizer,
+        private elementRef: ElementRef,
         private alertService: AlertService,
         private authenticationService: AuthenticationService,
+        private route: ActivatedRoute,
         private http: HttpClient,
         private pipeInstance: UpperCasePipe,
         private pipeCurrencyInstance: CurrencyPipe,
-        private orderService: OrderService,
+        private userService: UserService,
         private helpers: ScriptHelper,
-        private router: Router) { }
+        private renderer: Renderer2,
+        private router: Router) {
+            this.users = new User();
+    }
 
     ngOnInit() {
         this.helpers.initScript();
@@ -49,10 +56,16 @@ export class OrderListComponent implements OnInit {
         this.endEntry = 20;
         this.entryPoint = this.entryPoint + 20;
         this.loadAll(1, this.startEntry, this.endEntry);
+        // tslint:disable-next-line:no-string-literal
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
+    }
+
+    ngAfterViewInit(): void {
+        //
     }
 
     gotoDetail(id: number) {
-      this.router.navigate(['/order/detail', id]);
+      this.router.navigate(['/user/detail', id]);
     }
 
     pageClick(url: string, isNext: boolean): void {
@@ -66,27 +79,19 @@ export class OrderListComponent implements OnInit {
         }
     }
 
-    gotoPage(event: Event, startEntry: number, endEntry: number): void {
-        const clickedElement = event.target as HTMLElement;
-        if (clickedElement.classList.contains('current_page')) {
-          const pageNumber = +clickedElement.innerText;
-          this.loadAll(pageNumber, startEntry, endEntry)
-        }
-    }
-
     private loadAll(page: number, startEntry: number, endEntry: number) {
-        this.orders = new Order();
         this.loading = true;
         this.previous = false;
         this.isPaginationHidden = true;
-        const loadAll = this.orderService.getAll(page);
-        loadAll.subscribe((orders: Order) => {
-                this.orders = orders;
+        this.users = new User();
+        const loadAll = this.userService.getAll(page);
+        loadAll.subscribe((users: User) => {
+                this.users = users;
                 this.loading = false;
                 this.isPaginationHidden = false;
-                const recordCount = this.orders.count;
-                const previousPageUrl = this.orders.previous;
-                const nextPageUrl = this.orders.next;
+                const recordCount = this.users.count;
+                const previousPageUrl = this.users.previous;
+                const nextPageUrl = this.users.next;
                 const pageData = this.helpers.handlePageClick(page, recordCount, previousPageUrl, nextPageUrl, startEntry, endEntry)
                 this.previous = pageData.previous;
                 this.next = pageData.next;
@@ -100,5 +105,21 @@ export class OrderListComponent implements OnInit {
                     this.authenticationService.logout();
                 }
             });
+    }
+
+    gotoPage(event: Event, startEntry: number, endEntry: number): void {
+        const clickedElement = event.target as HTMLElement;
+        if (clickedElement.classList.contains('current_page')) {
+          const pageNumber = +clickedElement.innerText;
+          this.loadAll(pageNumber, startEntry, endEntry)
+        }
+    }
+
+    _delete(id: string) {
+        alert('You are not authorized to perform action');
+    }
+
+    ngOnDestroy(): void {
+        //
     }
 }

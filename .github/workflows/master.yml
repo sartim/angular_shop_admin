@@ -31,17 +31,8 @@ jobs:
         env:
           CI: false
       - run: ./scripts/create_api_dot_js.sh
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    strategy:
-      max-parallel: 1
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 1
-    - run: firebase login:ci
-    - name: Deploy to prod
-      run: |
-        firebase deploy
-    - run: firebase logout
+      - run: firebase login:ci
+      - name: Deploy to prod
+        run: |
+         firebase deploy
+      - run: firebase logout

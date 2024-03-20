@@ -1,7 +1,7 @@
 import {ActivatedRoute, Router} from '@angular/router';
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {User} from '../_models';
-import {AlertService, AuthenticationService, ProductService} from '../_services';
+import {AlertService, AuthenticationService, UserService} from '../_services';
 import {HttpClient} from '@angular/common/http';
 import {CurrencyPipe, UpperCasePipe} from '@angular/common';
 import {ScriptHelper} from '../_helpers/scripts.helpers';
@@ -43,7 +43,7 @@ export class UserListComponent implements AfterViewInit, OnInit, OnDestroy {
         private http: HttpClient,
         private pipeInstance: UpperCasePipe,
         private pipeCurrencyInstance: CurrencyPipe,
-        private productService: ProductService,
+        private userService: UserService,
         private helpers: ScriptHelper,
         private renderer: Renderer2,
         private router: Router) {
@@ -84,7 +84,7 @@ export class UserListComponent implements AfterViewInit, OnInit, OnDestroy {
         this.previous = false;
         this.isPaginationHidden = true;
         this.users = new User();
-        const loadAll = this.productService.getAll(page);
+        const loadAll = this.userService.getAll(page);
         loadAll.subscribe((users: User) => {
                 this.users = users;
                 this.loading = false;

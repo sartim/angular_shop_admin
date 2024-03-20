@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col s12 m12 l12">
+    <div *ngIf="user">
+      <div class="row">
+        <div class="card">
+          <div class="card-content table-card">
+            <form class="col s12">
+            <div class="row" *ngIf="user.id">
+              <label for="id" class="form-label">ID</label>
+              <div class="input-field col s12">
+                <input placeholder="{{user.id}}" disabled value="{{user.id}}" id="id" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row" *ngIf="user.first_name">
+              <label for="first_name" class="form-label">Name</label>
+              <div class="input-field col s12">
+                <input placeholder="{{user.first_name}}" disabled value="{{user.first_name}}" id="first_name" type="text" class="validate">
+              </div>
+            </div>
+              <div class="row" *ngIf="user.first_name">
+              <label for="first_name" class="form-label">Name</label>
+              <div class="input-field col s12">
+                <input placeholder="{{user.last_name}}" disabled value="{{user.last_name}}" id="last_name" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row" *ngIf="user.email">
+              <label for="email" class="form-label">Price</label>
+              <div class="input-field col s12">
+                <input placeholder="{{user.email}}" disabled value="{{user.email}}" id="email" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row">
+              <label for="created_at" class="form-label">Created Date</label>
+              <div class="input-field col s12">
+                <input placeholder="{{user.created_at}}" disabled value="{{user.created_at}}" id="created_at" type="text" class="validate">
+              </div>
+            </div>
+            <div class="row">
+              <label for="updated_at" class="form-label">Updated Date</label>
+              <div class="input-field col s12">
+                <input placeholder="{{user.updated_at}}" disabled value="{{user.updated_at}}" id="updated_at" type="text" class="validate">
+              </div>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

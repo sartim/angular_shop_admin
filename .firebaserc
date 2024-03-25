@@ -1,5 +1,5 @@
 {
   "projects": {
-    "staging": "angular-drf-admin"
+    "default": "angular-drf-admin"
   }
 }

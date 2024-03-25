@@ -8,10 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: yarn install && ng build
+      - name: Setup CI/CD Server
+        run: |
+          sudo apt-get update &&
+          sudo snap install bower --classic
+      - run: bower install
+      - run: yarn install && yarn build
+      - run: ./scripts/create_api_dot_js.sh
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           channelId: live
-          projectId: tridim-technologies
+          projectId: angular-drf-admin-418321
